@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package com.duynn.sqa1_n8_yc21_shopmanager.model;
 
 import java.io.Serializable;
 

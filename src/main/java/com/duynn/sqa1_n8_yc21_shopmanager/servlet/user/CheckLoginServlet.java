@@ -1,7 +1,7 @@
-package servlet.user;
+package com.duynn.sqa1_n8_yc21_shopmanager.servlet.user;
 
-import DAO.UserDAO;
-import model.User;
+import com.duynn.sqa1_n8_yc21_shopmanager.DAO.UserDAO;
+import com.duynn.sqa1_n8_yc21_shopmanager.model.User;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

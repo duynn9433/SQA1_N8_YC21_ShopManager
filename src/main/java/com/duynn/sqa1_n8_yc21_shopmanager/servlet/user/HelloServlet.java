@@ -1,4 +1,4 @@
-package com.duynn.sqa1_n8_yc21_shopmanager;
+package com.duynn.sqa1_n8_yc21_shopmanager.servlet.user;
 
 import java.io.*;
 import javax.servlet.http.*;

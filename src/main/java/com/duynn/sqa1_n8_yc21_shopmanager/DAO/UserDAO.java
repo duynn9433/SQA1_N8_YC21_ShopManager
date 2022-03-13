@@ -1,6 +1,6 @@
-package DAO;
+package com.duynn.sqa1_n8_yc21_shopmanager.DAO;
 
-import model.User;
+import com.duynn.sqa1_n8_yc21_shopmanager.model.User;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

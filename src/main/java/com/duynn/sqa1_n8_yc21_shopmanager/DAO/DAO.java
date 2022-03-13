@@ -1,5 +1,5 @@
-package DAO;
-import model.User;
+package com.duynn.sqa1_n8_yc21_shopmanager.DAO;
+import com.duynn.sqa1_n8_yc21_shopmanager.model.User;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
