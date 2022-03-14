@@ -64,7 +64,7 @@ public class ClientDAO extends DAO {
         return res;
     }
 
-    public boolean editClient(Client client) throws SQLException {
+    public boolean editClient(Client client){
         boolean success = false;
         try {
             con.setAutoCommit(false);
@@ -85,4 +85,23 @@ public class ClientDAO extends DAO {
         }
         return success;
     }
+
+    public boolean deleteClient(Client client) throws SQLException{
+        boolean success = false;
+        try {
+            con.setAutoCommit(false);
+            String sql = "UPDATE client SET isActive = ? WHERE id = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1,"0");
+            ps.setString(2, String.valueOf(client.getID()));
+            ps.executeUpdate();
+            con.commit();
+            con.setAutoCommit(true);
+            success = true;
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return success;
+    }
+
 }

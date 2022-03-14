@@ -33,7 +33,7 @@ public class ManagementClientServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
 
         ServletContext context = getServletContext();
         String url = "/manager/ManagementClientView.jsp";
@@ -72,7 +72,20 @@ public class ManagementClientServlet extends HttpServlet {
 
         if(action.equals("delete")){
             System.out.println("delete");
-            url = "/manager/DeleteClientView.jsp";
+            String did = request.getParameter("did");
+            String dname = request.getParameter("dname");
+            String daddress = request.getParameter("daddress");
+            String dphoneNumber = request.getParameter("dphoneNumber");
+
+            Client client = new Client();
+            client.setID(Integer.parseInt(did));
+            client.setName(dname);
+            client.setPhoneNumber(dphoneNumber);
+            client.setAddress(daddress);
+
+            boolean success = clientDAO.deleteClient(client);
+            System.out.printf(success + "");
+            url = "/manager/ManagementClientView.jsp";
         }
 
         context.getRequestDispatcher(url).forward(request, response);
@@ -80,11 +93,19 @@ public class ManagementClientServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

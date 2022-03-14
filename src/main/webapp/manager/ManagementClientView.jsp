@@ -80,8 +80,11 @@
 
                         <td>
                             <form action="<c:url value="/ManagementClientServlet"/>" method="POST">
-                                <input type="hidden" name="did" value="">
-                                <input type="submit" class="btn mod" value="Xoá" name="delete">
+                                <input type="hidden" name="did" value="${i.ID}">
+                                <input type="hidden" name="dname" value="${i.name}">
+                                <input type="hidden" name="daddress" value="${i.address}">
+                                <input type="hidden" name="dphoneNumber" value="${i.phoneNumber}">
+                                <input type="submit" class="btn btn-primary" value="Xóa" name="delete">
                                 <input type="hidden" name="action" value="delete">
                             </form>
                         </td>
