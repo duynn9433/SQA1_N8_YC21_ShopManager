@@ -1,10 +1,7 @@
 package com.duynn.sqa1_n8_yc21_shopmanager.servlet.manager;
 
 import com.duynn.sqa1_n8_yc21_shopmanager.DAO.ClientDAO;
-import com.duynn.sqa1_n8_yc21_shopmanager.DAO.UserDAO;
 import com.duynn.sqa1_n8_yc21_shopmanager.model.Client;
-import com.duynn.sqa1_n8_yc21_shopmanager.model.User;
-import com.duynn.sqa1_n8_yc21_shopmanager.servlet.user.CheckLoginServlet;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -14,15 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.sql.Array;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-@WebServlet(name = "ManagementClientServlet", value = "/ManagementClientServlet")
-public class ManagementClientServlet extends HttpServlet {
+@WebServlet(name = "EditClientServlet", value = "/EditClientServlet")
+public class EditClientServlet extends HttpServlet {
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -44,37 +37,27 @@ public class ManagementClientServlet extends HttpServlet {
         }
         ClientDAO clientDAO = new ClientDAO();
         String action = request.getParameter("action");
-        System.out.println("action " + action);
-        if (action.equals("search")) {
-            String phoneNumber = request.getParameter("search_phone");
+        if (action.equals("edit")) {
+
+            int id = Integer.parseInt(request.getParameter("id"));
+            String name = request.getParameter("name");
+            String address = request.getParameter("address");
+            String phoneNumber = request.getParameter("phoneNumber");
+            Client client = new Client();
+            client.setID(id);
+            client.setName(name);
+            client.setPhoneNumber(phoneNumber);
+            client.setAddress(address);
+
+            System.out.println(client);
             try {
-                List<Client> list = new ArrayList<>(clientDAO.searchClient(phoneNumber));
-                session.setAttribute("listClient", list);
+                boolean success = clientDAO.editClient(client);
+                System.out.printf(success + "");
                 url = "/manager/ManagementClientView.jsp";
             } catch (Exception e){
 
             }
         }
-
-        if(action.equals("edit")){
-            String eid = request.getParameter("eid");
-            String ename = request.getParameter("ename");
-            String eaddress = request.getParameter("eaddress");
-            String ephoneNumber = request.getParameter("ephoneNumber");
-
-            session.setAttribute("id",eid);
-            session.setAttribute("name",ename);
-            session.setAttribute("address",eaddress);
-            session.setAttribute("phoneNumber",ephoneNumber);
-
-            url = "/manager/EditClientView.jsp";
-        }
-
-        if(action.equals("delete")){
-            System.out.println("delete");
-            url = "/manager/DeleteClientView.jsp";
-        }
-
         context.getRequestDispatcher(url).forward(request, response);
     }
 

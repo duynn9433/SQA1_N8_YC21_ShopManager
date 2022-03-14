@@ -64,17 +64,25 @@ public class ClientDAO extends DAO {
         return res;
     }
 
-        public void editClient (Client client) throws SQLException {
+    public boolean editClient(Client client) throws SQLException {
+        boolean success = false;
+        try {
             con.setAutoCommit(false);
-            PreparedStatement ps = con.prepareStatement("UPDATE client SET name = ?,address=?,phoneNumber=?" +
-                    " WHERE (`id` = ?);");
+            String sql = "UPDATE client SET name = ?,address=?,phoneNumber=?"
+                    + " WHERE (`id` = ?);";
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, client.getName());
             ps.setString(2, client.getAddress());
             ps.setString(3, client.getPhoneNumber());
             ps.setString(4, String.valueOf(client.getID()));
-            ps.executeQuery();
-
+            ps.executeUpdate();
+            System.out.println("Edit SQL");
             con.commit();
             con.setAutoCommit(true);
+            success = true;
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return success;
     }
+}

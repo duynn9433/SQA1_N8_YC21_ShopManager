@@ -24,6 +24,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </head>
 <body>
+
 <div class="container">
     <div class="row">
         <div class="col-sm-4">
@@ -52,28 +53,42 @@
                 </div>
             </form>
 
-            <form action="<c:url value="/ManagementClientServlet"/>" method="post">
-                <input type="hidden" name="action" value="edit">
-                <table cellspacing="6" cellpadding="6" border="1">
-                    <tr>
-                        <th>ID</th>
-                        <th>Tên</th>
-                        <th>Địa chỉ</th>
-                        <th>SĐT</th>
-                    </tr>
+            <table cellspacing="6" cellpadding="6" border="1">
+                <tr>
+                    <th>ID</th>
+                    <th>Tên</th>
+                    <th>Địa chỉ</th>
+                    <th>SĐT</th>
+                </tr>
 
-                    <c:forEach var="i" items="${listClient}" varStatus="status">
-                        <tr valign="top">
-                            <td>${i.ID}</td>
-                            <td>${i.name}</td>
-                            <td>${i.address}</td>
-                            <td>${i.phoneNumber}</td>
-                            <td><input class="btn btn-primary" type="submit" value="Sửa" name="edit"/></td>
-                            <td><input class="btn btn-primary" type="submit" value="Xóa" name="delete"/></td>
-                        </tr>
-                    </c:forEach>
-                </table>
-            </form>
+                <c:forEach var="i" items="${listClient}" varStatus="status">
+                    <tr valign="top">
+                        <td>${i.ID}</td>
+                        <td>${i.name}</td>
+                        <td>${i.address}</td>
+                        <td>${i.phoneNumber}</td>
+                        <td>
+                            <form action="<c:url value="/ManagementClientServlet"/>" method="POST">
+                                <input type="hidden" name="eid" value="${i.ID}">
+                                <input type="hidden" name="ename" value="${i.name}">
+                                <input type="hidden" name="eaddress" value="${i.address}">
+                                <input type="hidden" name="ephoneNumber" value="${i.phoneNumber}">
+                                <input type="submit" class="btn btn-primary" value="Sửa" name="edit">
+                                <input type="hidden" name="action" value="edit">
+                            </form>
+                        </td>
+
+                        <td>
+                            <form action="<c:url value="/ManagementClientServlet"/>" method="POST">
+                                <input type="hidden" name="did" value="">
+                                <input type="submit" class="btn mod" value="Xoá" name="delete">
+                                <input type="hidden" name="action" value="delete">
+                            </form>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </table>
+
         </div>
     </div>
 </div>
