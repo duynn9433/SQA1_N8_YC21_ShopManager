@@ -1,6 +1,6 @@
 package com.duynn.sqa1_n8_yc21_shopmanager.model;
 
-import javafx.beans.DefaultProperty;
+//import javafx.beans.DefaultProperty;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;

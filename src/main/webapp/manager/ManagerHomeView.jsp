@@ -27,7 +27,7 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-4">
-            <form action="<c:url value="/ManagerHomeServlet"/>" method="post">
+            <form action="<c:url value="/ManagementClientServlet"/>" method="post">
                 <input class="btn btn-danger" type="submit" value="Log out">
             </form>
         </div>
@@ -45,6 +45,32 @@
         <div class="col-12 text-center">
             <form action="<c:url value="/manager/ManagementClientView.jsp"/>" method="get">
                 <input class="btn btn-primary" type="submit" value="Quản lý thông tin khách hàng">
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <form action="<c:url value="/ManagementBillServlet"/>" method="post">
+                <input class="btn btn-danger" type="submit" value="edit">
+            </form>
+        </div>
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4">
+            <h3> </h3>
+        </div>
+    </div>
+    <div class="row" style="margin-top:20px;">
+        <div class="col-12 text-center">
+            <h1>Manager's Bill</h1>
+        </div>
+    </div>
+    <div class="row ">
+        <div class="col-12 text-center">
+            <form action="<c:url value="/manager/ManagementBillView.jsp"/>" method="get">
+                <input class="btn btn-primary" type="submit" value="Quản lý thông tin hóa đơn">
             </form>
         </div>
     </div>
