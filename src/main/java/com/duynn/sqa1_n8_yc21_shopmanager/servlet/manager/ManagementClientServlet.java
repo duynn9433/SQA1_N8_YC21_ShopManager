@@ -71,7 +71,7 @@ public class ManagementClientServlet extends HttpServlet {
         }
 
         if(action.equals("delete")){
-            System.out.println("delete");
+           /* System.out.println("delete");
             String did = request.getParameter("did");
             String dname = request.getParameter("dname");
             String daddress = request.getParameter("daddress");
@@ -85,7 +85,7 @@ public class ManagementClientServlet extends HttpServlet {
 
             boolean success = clientDAO.deleteClient(client);
             System.out.printf(success + "");
-            url = "/manager/ManagementClientView.jsp";
+            url = "/manager/ManagementClientView.jsp";*/
         }
 
         context.getRequestDispatcher(url).forward(request, response);
@@ -93,8 +93,11 @@ public class ManagementClientServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ServletContext context = getServletContext();
+        String url = "/manager/ManagementClientView.jsp";
         try {
-            processRequest(request, response);
+            Boolean res = new ClientDAO().deleteClient(getInitParameter("id"));
+            context.getRequestDispatcher(url).forward(request, response);
         } catch (SQLException e) {
             e.printStackTrace();
         }
