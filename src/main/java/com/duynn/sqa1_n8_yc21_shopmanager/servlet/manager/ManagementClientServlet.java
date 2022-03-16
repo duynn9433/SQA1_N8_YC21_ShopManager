@@ -34,7 +34,6 @@ public class ManagementClientServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-
         ServletContext context = getServletContext();
         String url = "/manager/ManagementClientView.jsp";
         HttpSession session = request.getSession();
@@ -96,7 +95,11 @@ public class ManagementClientServlet extends HttpServlet {
         ServletContext context = getServletContext();
         String url = "/manager/ManagementClientView.jsp";
         try {
+            HttpSession session = request.getSession();
             Boolean res = new ClientDAO().deleteClient(request.getParameter("id"));
+            List<Client> list = new ArrayList<>();
+            session.setAttribute("listClient", list);
+            url = "/manager/ManagementClientView.jsp";
             context.getRequestDispatcher(url).forward(request, response);
         } catch (SQLException e) {
             e.printStackTrace();
