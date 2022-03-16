@@ -79,14 +79,15 @@
                         </td>
 
                         <td>
-                            <form action="<c:url value="/ManagementClientServlet"/>" method="POST">
+                            <!--form action="<c:url value="/ManagementClientServlet"/>" method="POST">
                                 <input type="hidden" name="did" value="${i.ID}">
                                 <input type="hidden" name="dname" value="${i.name}">
                                 <input type="hidden" name="daddress" value="${i.address}">
                                 <input type="hidden" name="dphoneNumber" value="${i.phoneNumber}">
                                 <input type="submit" class="btn btn-primary" value="Xóa" name="delete">
                                 <input type="hidden" name="action" value="delete">
-                            </form>
+                            </form-->
+                            <button class="btn btn-primary" onclick="Confirm(${i.ID})">Delete</button>
                         </td>
                     </tr>
                 </c:forEach>
@@ -95,6 +96,13 @@
         </div>
     </div>
 </div>
-
+<script>
+    function Confirm(id){
+        var choose = confirm("ban co muon xoa khach hang nay?");
+        if(choose==true){
+            window.location.href='ManagementClientServlet?id='+id;
+        }
+    }
+</script>
 </body>
 </html>
