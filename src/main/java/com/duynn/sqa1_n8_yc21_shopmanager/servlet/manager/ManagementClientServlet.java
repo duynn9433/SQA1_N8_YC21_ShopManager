@@ -96,7 +96,7 @@ public class ManagementClientServlet extends HttpServlet {
         ServletContext context = getServletContext();
         String url = "/manager/ManagementClientView.jsp";
         try {
-            Boolean res = new ClientDAO().deleteClient(getInitParameter("id"));
+            Boolean res = new ClientDAO().deleteClient(request.getParameter("id"));
             context.getRequestDispatcher(url).forward(request, response);
         } catch (SQLException e) {
             e.printStackTrace();
