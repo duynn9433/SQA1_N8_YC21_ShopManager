@@ -34,7 +34,6 @@ public class ManagementClientServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-
         ServletContext context = getServletContext();
         String url = "/manager/ManagementClientView.jsp";
         HttpSession session = request.getSession();
@@ -71,7 +70,7 @@ public class ManagementClientServlet extends HttpServlet {
         }
 
         if(action.equals("delete")){
-            System.out.println("delete");
+           /* System.out.println("delete");
             String did = request.getParameter("did");
             String dname = request.getParameter("dname");
             String daddress = request.getParameter("daddress");
@@ -85,7 +84,7 @@ public class ManagementClientServlet extends HttpServlet {
 
             boolean success = clientDAO.deleteClient(client);
             System.out.printf(success + "");
-            url = "/manager/ManagementClientView.jsp";
+            url = "/manager/ManagementClientView.jsp";*/
         }
 
         context.getRequestDispatcher(url).forward(request, response);
@@ -93,8 +92,15 @@ public class ManagementClientServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ServletContext context = getServletContext();
+        String url = "/manager/ManagementClientView.jsp";
         try {
-            processRequest(request, response);
+            HttpSession session = request.getSession();
+            Boolean res = new ClientDAO().deleteClient(request.getParameter("id"));
+            List<Client> list = new ArrayList<>();
+            session.setAttribute("listClient", list);
+            url = "/manager/ManagementClientView.jsp";
+            context.getRequestDispatcher(url).forward(request, response);
         } catch (SQLException e) {
             e.printStackTrace();
         }

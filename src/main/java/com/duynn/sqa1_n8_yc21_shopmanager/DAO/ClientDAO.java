@@ -86,14 +86,14 @@ public class ClientDAO extends DAO {
         return success;
     }
 
-    public boolean deleteClient(Client client) throws SQLException{
+    public boolean deleteClient(String id) throws SQLException{
         boolean success = false;
         try {
             con.setAutoCommit(false);
             String sql = "UPDATE client SET isActive = ? WHERE id = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1,"0");
-            ps.setString(2, String.valueOf(client.getID()));
+            ps.setString(2,id);
             ps.executeUpdate();
             con.commit();
             con.setAutoCommit(true);
