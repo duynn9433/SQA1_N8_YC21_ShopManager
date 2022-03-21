@@ -25,8 +25,10 @@ public class BillDAO extends DAO{
 
             while(rs.next()){
                 Bill bill = new Bill();
+//                bill.setClient(new ClientDAO().getClient(rs.getInteger("clientID");
+//                bill.setBuyingGoodsList(new BuyingGoodsDAO().getBuyingGoods(rs.getInterger("id"));
                 bill.setId(rs.getInt("id"));
-                bill.setPaymentDate(rs.getDate("paymentDate"));
+//                bill.setPaymentDate(rs.getDate("paymentDate"));
                 bill.setPaymentTotal(rs.getLong("paymentTotal"));
                 bill.setPaymentType(rs.getString("paymentType"));
                 bill.setSaleOf(rs.getFloat("saleOf"));
@@ -46,7 +48,7 @@ public class BillDAO extends DAO{
             String sql = "UPDATE bill SET  paymentDate= ?,paymentTotal=?,paymentType=?,saleOf=?,note=?"
                     + " WHERE (`id` = ?);";
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setDate(1, (Date) bill.getPaymentDate());
+//            ps.setDate(1, (Date) bill.getPaymentDate());
             ps.setLong(2, bill.getPaymentTotal());
             ps.setString(3, bill.getPaymentType());
             ps.setFloat(4,bill.getSaleOf());
@@ -67,12 +69,14 @@ public class BillDAO extends DAO{
         boolean success = false;
         try {
             con.setAutoCommit(false);
-            String sql = "DELETE FROM bill WHERE id = ?";
+//            String sql = "DELETE FROM bill WHERE id = ?";
+            String sql = "UPDATE bill SET isActive = ? WHERE id = ?";
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1,bill.getId());
+            ps.setBoolean(1,false);
+            ps.setInt(2,bill.getId());
             //ps.setString(2, String.valueOf(client.getID()));
           //  ps.executeUpdate();
-            ps.executeQuery();
+            ps.executeUpdate();
             con.commit();
             con.setAutoCommit(true);
             success = true;

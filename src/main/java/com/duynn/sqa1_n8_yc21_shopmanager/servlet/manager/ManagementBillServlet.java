@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,7 +65,7 @@ public class ManagementBillServlet extends HttpServlet {
         if(action.equals("delete")){
             System.out.println("delete");
             String did = request.getParameter("did");
-            Date dpaymentDate = Date.valueOf(request.getParameter("dpaymentDate"));
+//            LocalDateTime dpaymentDate = Date.valueOf(request.getParameter("dpaymentDate"));
             long dpaymentTotal = Long.parseLong(request.getParameter("dpaymentTotal"));
             String dpaymentType = request.getParameter("dpaymentType");
             float dsaleOf = Float.parseFloat(request.getParameter("dsaleOf"));
@@ -72,7 +73,7 @@ public class ManagementBillServlet extends HttpServlet {
 
             Bill bill = new Bill();
             bill.setId(Integer.parseInt(did));
-            bill.setPaymentDate(dpaymentDate);
+//            bill.setPaymentDate(dpaymentDate);
             bill.setPaymentTotal(dpaymentTotal);
             bill.setPaymentType(dpaymentType);
             bill.setSaleOf(dsaleOf);

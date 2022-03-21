@@ -42,6 +42,9 @@ public class ClientDAO extends DAO {
         con.setAutoCommit(true);
     }
 
+    public Client getClient(int clientID){
+        return new Client();
+    }
     public List<Client> searchClient(String sdt) throws SQLException {
         List<Client> res = new ArrayList<>();
         String sql = "select * from client c where c.phoneNumber = ?";

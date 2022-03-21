@@ -1,33 +1,41 @@
 package com.duynn.sqa1_n8_yc21_shopmanager.model;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 public class Bill {
 
     private int id;
-    private Date paymentDate;
+    private LocalDateTime paymentDate;
     private long paymentTotal;
     private String paymentType;
     private float saleOf;
     private String note;
+    private boolean isPaid;
+    private boolean isActive;
     private User user;
     private Client client;
-    private ArrayList<BuyingGoods> buyingGoods;
+    private ArrayList<BuyingGoods> buyingGoodsList;
 
     public Bill() {
+
     }
 
-    public Bill(int id, Date paymentDate, long paymentTotal, String paymentType, float saleOf, String note, User user, Client client, ArrayList<BuyingGoods> buyingGoods) {
+    public Bill(int id, LocalDateTime paymentDate, long paymentTotal, String paymentType, float saleOf, String note, boolean isPaid,
+                boolean isActive, User user, Client client, ArrayList<BuyingGoods> buyingGoods) {
         this.id = id;
         this.paymentDate = paymentDate;
         this.paymentTotal = paymentTotal;
         this.paymentType = paymentType;
         this.saleOf = saleOf;
         this.note = note;
+        this.isPaid = isPaid;
+        this.isActive = isActive;
         this.user = user;
         this.client = client;
-        this.buyingGoods = buyingGoods;
+        this.buyingGoodsList = buyingGoods;
     }
 
     public int getId() {
@@ -38,11 +46,11 @@ public class Bill {
         this.id = id;
     }
 
-    public Date getPaymentDate() {
+    public LocalDateTime getPaymentDate() {
         return paymentDate;
     }
 
-    public void setPaymentDate(Date paymentDate) {
+    public void setPaymentDate(LocalDateTime paymentDate) {
         this.paymentDate = paymentDate;
     }
 
@@ -78,6 +86,22 @@ public class Bill {
         this.note = note;
     }
 
+    public boolean isPaid() {
+        return isPaid;
+    }
+
+    public void setPaid(boolean paid) {
+        isPaid = paid;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
     public User getUser() {
         return user;
     }
@@ -95,10 +119,10 @@ public class Bill {
     }
 
     public ArrayList<BuyingGoods> getBuyingGoods() {
-        return buyingGoods;
+        return buyingGoodsList;
     }
 
     public void setBuyingGoods(ArrayList<BuyingGoods> buyingGoods) {
-        this.buyingGoods = buyingGoods;
+        this.buyingGoodsList = buyingGoods;
     }
 }
