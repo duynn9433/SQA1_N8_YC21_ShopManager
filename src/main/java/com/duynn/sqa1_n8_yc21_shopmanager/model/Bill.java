@@ -1,16 +1,14 @@
 package com.duynn.sqa1_n8_yc21_shopmanager.model;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
 
 public class Bill {
 
     private int id;
     private LocalDateTime paymentDate;
     private long paymentTotal;
-    private String paymentType;
     private float saleOf;
     private String note;
     private boolean isPaid;
@@ -23,19 +21,17 @@ public class Bill {
 
     }
 
-    public Bill(int id, LocalDateTime paymentDate, long paymentTotal, String paymentType, float saleOf, String note, boolean isPaid,
-                boolean isActive, User user, Client client, ArrayList<BuyingGoods> buyingGoods) {
+    public Bill(int id, LocalDateTime paymentDate, long paymentTotal, float saleOf, String note, boolean isPaid, boolean isActive, User user, Client client, ArrayList<BuyingGoods> buyingGoodsList) {
         this.id = id;
         this.paymentDate = paymentDate;
         this.paymentTotal = paymentTotal;
-        this.paymentType = paymentType;
         this.saleOf = saleOf;
         this.note = note;
         this.isPaid = isPaid;
         this.isActive = isActive;
         this.user = user;
         this.client = client;
-        this.buyingGoodsList = buyingGoods;
+        this.buyingGoodsList = buyingGoodsList;
     }
 
     public int getId() {
@@ -60,14 +56,6 @@ public class Bill {
 
     public void setPaymentTotal(long paymentTotal) {
         this.paymentTotal = paymentTotal;
-    }
-
-    public String getPaymentType() {
-        return paymentType;
-    }
-
-    public void setPaymentType(String paymentType) {
-        this.paymentType = paymentType;
     }
 
     public float getSaleOf() {
@@ -118,11 +106,11 @@ public class Bill {
         this.client = client;
     }
 
-    public ArrayList<BuyingGoods> getBuyingGoods() {
+    public ArrayList<BuyingGoods> getBuyingGoodsList() {
         return buyingGoodsList;
     }
 
-    public void setBuyingGoods(ArrayList<BuyingGoods> buyingGoods) {
-        this.buyingGoodsList = buyingGoods;
+    public void setBuyingGoodsList(ArrayList<BuyingGoods> buyingGoodsList) {
+        this.buyingGoodsList = buyingGoodsList;
     }
 }

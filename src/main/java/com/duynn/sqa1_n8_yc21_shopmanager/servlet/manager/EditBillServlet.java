@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.Array;
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 @WebServlet(name = "EditBillServlet", value = "/EditBillServlet")
 public class EditBillServlet extends HttpServlet {
@@ -34,19 +36,24 @@ public class EditBillServlet extends HttpServlet {
         if (action.equals("edit")) {
 
             int id = Integer.parseInt(request.getParameter("id"));
-            Date paymentDate = Date.valueOf(request.getParameter("paymentDate"));
+            LocalDateTime paymentDate = LocalDateTime.parse(request.getParameter("paymentDate"));
             long paymentTotal  = Long.parseLong(request.getParameter("paymentTotal"));
             String paymentType = request.getParameter("paymentType");
             float saleOf = Float.parseFloat(request.getParameter("saleOf"));
             String note = request.getParameter("note");
+            Boolean isPaid= Boolean.valueOf(request.getParameter("isPaid"));
+            Boolean isActive = Boolean.valueOf(request.getParameter("isActive"));
+            //Array BuyingGoods = request.getParameter("")
+
 
             Bill bill = new Bill();
             bill.setId(id);
             bill.setPaymentDate(paymentDate);
             bill.setPaymentTotal(paymentTotal);
-            bill.setPaymentType(paymentType);
             bill.setSaleOf(saleOf);
             bill.setNote(note);
+            bill.setPaid(isPaid);
+            bill.setActive(isActive);
 
             System.out.println(bill);
             try {

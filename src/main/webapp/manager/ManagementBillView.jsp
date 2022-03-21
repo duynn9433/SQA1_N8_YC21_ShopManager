@@ -35,7 +35,7 @@
                 <div class="col-12 text-center">
                     <form class="form-inline" action="<c:url value="/ManagementBillServlet"/>" method="POST">
                         <div class="input-group">
-                            <input type="text" class="form-control" size="80" placeholder="ngày mua hóa đơn khách hàng"
+                            <input type="text" class="form-control" size="80" placeholder="ID hóa đơn khách hàng"
                                    name="search_date">
                             <input class="btn btn-primary" type="submit" name="search" value="Tìm kiếm">
                             <input type="hidden" name="action" value="search">
@@ -47,9 +47,10 @@
                             <th>ID</th>
                             <th>Ngày thanh toán</th>
                             <th>tổng thanh toán</th>
-                            <th>loại thanh toán</th>
+<%--                            <th>loại thanh toán</th>--%>
                             <th>giảm giá</th>
                             <th>chú thích</th>
+
                         </tr>
 
                         <c:forEach var="i" items="${listBill}" varStatus="status">
@@ -57,7 +58,7 @@
                                 <td>${i.ID}</td>
                                 <td>${i.paymentDate}</td>
                                 <td>${i.paymentTotal}</td>
-                                <td>${i.paymentType}</td>
+<%--                                <td>${i.paymentType}</td>--%>
                                 <td>${i.saleOf}</td>
                                 <td>${i.note}</td>
                                 <td>
@@ -65,7 +66,7 @@
                                         <input type="hidden" name="eid" value="${i.ID}">
                                         <input type="hidden" name="epaymentDate" value="${i.paymentDate}">
                                         <input type="hidden" name="epaymentTotal" value="${i.paymentTotal}">
-                                        <input type="hidden" name="epaymentType" value="${i.paymenType}">
+<%--                                        <input type="hidden" name="epaymentType" value="${i.paymenType}">--%>
                                         <input type="hidden" name="esaleOf" value="${i.saleOf}">
                                         <input type="hidden" name="enote" value="${i.note}">
 
@@ -79,7 +80,7 @@
                                         <input type="hidden" name="did" value="${i.ID}">
                                         <input type="hidden" name="dpaymentDate" value="${i.paymentDate}">
                                         <input type="hidden" name="dpaymentTotal" value="${i.paymentTotal}">
-                                        <input type="hidden" name="dpaymentType" value="${i.paymentType}">
+<%--                                        <input type="hidden" name="dpaymentType" value="${i.paymentType}">--%>
                                         <input type="hidden" name="dsaleOf" value="${i.saleOf}">
                                         <input type="hidden" name="dnote" value="${i.note}">
 
