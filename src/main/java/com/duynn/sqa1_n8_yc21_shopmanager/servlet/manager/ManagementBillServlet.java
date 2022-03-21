@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +46,7 @@ public class ManagementBillServlet extends HttpServlet {
 
         if(action.equals("edit")){
             String eid = request.getParameter("eid");
-            String epaymentDate = request.getParameter("epaymentDate");
+            Date epaymentDate = Date.valueOf(request.getParameter("epaymentDate"));
             long epaymentTotal = Long.parseLong(request.getParameter("epaymentTotal"));
             String epaymentType = request.getParameter("epaymentType");
             float esaleOf = Float.parseFloat(request.getParameter("esaleOf"));
@@ -62,13 +63,8 @@ public class ManagementBillServlet extends HttpServlet {
 
         if(action.equals("delete")){
             System.out.println("delete");
-//            String did = request.getParameter("did");
-//            String dname = request.getParameter("dname");
-//            String daddress = request.getParameter("daddress");
-//            String dphoneNumber = request.getParameter("dphoneNumber");
-
             String did = request.getParameter("did");
-            String dpaymentDate = request.getParameter("dpaymentDate");
+            Date dpaymentDate = Date.valueOf(request.getParameter("dpaymentDate"));
             long dpaymentTotal = Long.parseLong(request.getParameter("dpaymentTotal"));
             String dpaymentType = request.getParameter("dpaymentType");
             float dsaleOf = Float.parseFloat(request.getParameter("dsaleOf"));

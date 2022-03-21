@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.Date;
 
 @WebServlet(name = "EditBillServlet", value = "/EditBillServlet")
 public class EditBillServlet extends HttpServlet {
@@ -33,7 +34,7 @@ public class EditBillServlet extends HttpServlet {
         if (action.equals("edit")) {
 
             int id = Integer.parseInt(request.getParameter("id"));
-            String paymentDate = request.getParameter("paymentDate");
+            Date paymentDate = Date.valueOf(request.getParameter("paymentDate"));
             long paymentTotal  = Long.parseLong(request.getParameter("paymentTotal"));
             String paymentType = request.getParameter("paymentType");
             float saleOf = Float.parseFloat(request.getParameter("saleOf"));

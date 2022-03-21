@@ -3,6 +3,7 @@ package com.duynn.sqa1_n8_yc21_shopmanager.DAO;
 import com.duynn.sqa1_n8_yc21_shopmanager.model.Bill;
 import com.duynn.sqa1_n8_yc21_shopmanager.model.Client;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,7 +17,7 @@ public class BillDAO extends DAO{
 
     public ArrayList<Bill> searchBill(String key){
         ArrayList<Bill> result = new ArrayList<Bill>();
-        String sql = "SELECT * FROM bill WHERE paymentDate LIKE ?";
+        String sql = "SELECT * FROM bill WHERE id LIKE ?";
         try{
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, "%" + key + "%");
@@ -25,7 +26,7 @@ public class BillDAO extends DAO{
             while(rs.next()){
                 Bill bill = new Bill();
                 bill.setId(rs.getInt("id"));
-                bill.setPaymentDate(rs.getString("paymentDate"));
+                bill.setPaymentDate(rs.getDate("paymentDate"));
                 bill.setPaymentTotal(rs.getLong("paymentTotal"));
                 bill.setPaymentType(rs.getString("paymentType"));
                 bill.setSaleOf(rs.getFloat("saleOf"));
@@ -45,7 +46,7 @@ public class BillDAO extends DAO{
             String sql = "UPDATE bill SET  paymentDate= ?,paymentTotal=?,paymentType=?,saleOf=?,note=?"
                     + " WHERE (`id` = ?);";
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, bill.getPaymentDate());
+            ps.setDate(1, (Date) bill.getPaymentDate());
             ps.setLong(2, bill.getPaymentTotal());
             ps.setString(3, bill.getPaymentType());
             ps.setFloat(4,bill.getSaleOf());

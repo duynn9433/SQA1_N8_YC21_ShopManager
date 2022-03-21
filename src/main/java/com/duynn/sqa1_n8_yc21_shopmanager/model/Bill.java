@@ -1,24 +1,33 @@
 package com.duynn.sqa1_n8_yc21_shopmanager.model;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 public class Bill {
 
     private int id;
-    private String paymentDate;
+    private Date paymentDate;
     private long paymentTotal;
     private String paymentType;
     private float saleOf;
     private String note;
+    private User user;
+    private Client client;
+    private ArrayList<BuyingGoods> buyingGoods;
 
     public Bill() {
     }
 
-    public Bill(int id, String paymentDate, long paymentTotal, String paymentType, float saleOf, String note) {
+    public Bill(int id, Date paymentDate, long paymentTotal, String paymentType, float saleOf, String note, User user, Client client, ArrayList<BuyingGoods> buyingGoods) {
         this.id = id;
         this.paymentDate = paymentDate;
         this.paymentTotal = paymentTotal;
         this.paymentType = paymentType;
         this.saleOf = saleOf;
         this.note = note;
+        this.user = user;
+        this.client = client;
+        this.buyingGoods = buyingGoods;
     }
 
     public int getId() {
@@ -29,11 +38,11 @@ public class Bill {
         this.id = id;
     }
 
-    public String getPaymentDate() {
+    public Date getPaymentDate() {
         return paymentDate;
     }
 
-    public void setPaymentDate(String paymentDate) {
+    public void setPaymentDate(Date paymentDate) {
         this.paymentDate = paymentDate;
     }
 
@@ -69,15 +78,27 @@ public class Bill {
         this.note = note;
     }
 
-    @Override
-    public String toString() {
-        return "Bill{" +
-                "id=" + id +
-                ", paymentDate='" + paymentDate + '\'' +
-                ", paymentTotal=" + paymentTotal +
-                ", paymentType='" + paymentType + '\'' +
-                ", saleOf=" + saleOf +
-                ", note='" + note + '\'' +
-                '}';
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public ArrayList<BuyingGoods> getBuyingGoods() {
+        return buyingGoods;
+    }
+
+    public void setBuyingGoods(ArrayList<BuyingGoods> buyingGoods) {
+        this.buyingGoods = buyingGoods;
     }
 }
