@@ -76,7 +76,7 @@ public class ClientDAO extends DAO {
             ps.setString(3, client.getPhoneNumber());
             ps.setString(4, String.valueOf(client.getID()));
             ps.executeUpdate();
-            System.out.println("Edit SQL");
+//            System.out.println("Edit SQL");
             con.commit();
             con.setAutoCommit(true);
             success = true;
