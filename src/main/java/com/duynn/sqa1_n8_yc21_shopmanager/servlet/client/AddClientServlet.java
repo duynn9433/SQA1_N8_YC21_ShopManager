@@ -40,6 +40,17 @@ public class AddClientServlet extends HttpServlet {
         client.setActive(true);
 
         if (action.equals("accept")) {
+            String status = (String) request.getSession().getAttribute("status");
+            if(status != null){
+                if(status.equals("add_from_sell")){
+                    try {
+                        new ClientDAO().addClient(client);
+                        getServletContext().getRequestDispatcher("/selling/SellingHome.jsp").forward(request, response);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
             try {
                 new ClientDAO().addClient(client);
                 getServletContext().getRequestDispatcher("/seller/SellerHome.jsp").forward(request, response);

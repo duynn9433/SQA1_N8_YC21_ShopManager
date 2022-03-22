@@ -2,11 +2,9 @@ package com.duynn.sqa1_n8_yc21_shopmanager.DAO;
 
 import com.duynn.sqa1_n8_yc21_shopmanager.model.Bill;
 import com.duynn.sqa1_n8_yc21_shopmanager.model.BuyingGoods;
-import com.duynn.sqa1_n8_yc21_shopmanager.model.Client;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class BillDAO extends DAO{
     public BillDAO() {
@@ -18,7 +16,7 @@ public class BillDAO extends DAO{
         String sql = "SELECT * FROM bill WHERE id=?";
         try{
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, "%" + key + "%");
+            ps.setString(1, key);
             ResultSet rs = ps.executeQuery();
 
             while(rs.next()){
@@ -26,7 +24,7 @@ public class BillDAO extends DAO{
                 bill.setClient(new ClientDAO().getClient(rs.getInt("clientId")));
                 bill.setBuyingGoodsList((ArrayList<BuyingGoods>) new BuyingGoodsDAO().getBuyingGoods(rs.getInt("id")));
                 bill.setId(rs.getInt("id"));
-                bill.setPaymentTotal(rs.getLong("paymentTotal"));
+//                bill.setPaymentTotal(rs.getLong("paymentTotal")); dẫn xuất tự tính
                 bill.setSaleOf(rs.getFloat("saleOf"));
                 bill.setNote(rs.getString("note"));
                 bill.setPaid(rs.getBoolean("isPaid"));
@@ -88,5 +86,48 @@ public class BillDAO extends DAO{
             e.printStackTrace();
         }
         return success;
+    }
+
+    public void save(Bill bill) {
+
+
+        try {
+            //manual get id
+            int billID;
+            PreparedStatement psinit;
+            ResultSet rsinit;
+
+            psinit = con.prepareStatement("select max(c.id) as max from bill c");
+            rsinit = psinit.executeQuery();
+            rsinit.next();
+            billID = rsinit.getInt("max");
+
+            bill.setId(++billID);
+
+            psinit.close();
+            rsinit.close();
+
+            con.setAutoCommit(false);
+            String sql = "INSERT INTO bill (id, paymentDate, saleOff, isPaid, isActive, userId, clientId) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1,bill.getId());
+            ps.setTimestamp(2,Timestamp.valueOf(bill.getPaymentDate()));
+            ps.setFloat(3,bill.getSaleOf());
+            ps.setBoolean(4,bill.isPaid());
+            ps.setBoolean(5,bill.isActive());
+            ps.setInt(6,bill.getUser().getID());
+            ps.setInt(7,bill.getClient().getID());
+            BuyingGoodsDAO buyingGoodsDAO = new BuyingGoodsDAO();
+            ps.execute();
+            con.commit();
+            con.setAutoCommit(true);
+            ps.close();
+            for(BuyingGoods b:bill.getBuyingGoodsList()){
+                buyingGoodsDAO.save(b,bill.getId());
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 }

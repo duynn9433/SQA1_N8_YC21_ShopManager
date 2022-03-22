@@ -45,13 +45,19 @@ public class ClientDAO extends DAO {
     public Client getClient(int clientID){
         return new Client();
     }
+
+    public static void main(String[] args) throws SQLException {
+        for (Client c:new ClientDAO().searchClient("0001") ){
+            System.out.println(c);
+        };
+    }
     public List<Client> searchClient(String sdt) throws SQLException {
         List<Client> res = new ArrayList<>();
-        String sql = "select * from client c where c.phoneNumber = ?";
+        String sql = "select * from client c where c.phoneNumber LIKE ?";
         PreparedStatement ps;
 
         ps = con.prepareStatement(sql);
-        ps.setString(1, sdt);
+        ps.setString(1, "%" +sdt+ "%");
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
             if (rs.getBoolean("isActive")) {

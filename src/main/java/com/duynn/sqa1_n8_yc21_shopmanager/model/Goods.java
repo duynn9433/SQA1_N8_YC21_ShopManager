@@ -1,6 +1,8 @@
 package com.duynn.sqa1_n8_yc21_shopmanager.model;
 
-public class Goods {
+import java.io.Serializable;
+
+public class Goods implements Serializable {
     private int ID;
     private String name;
     private String unity;
@@ -18,6 +20,18 @@ public class Goods {
     }
 
     public Goods() {
+    }
+
+    @Override
+    public String toString() {
+        return "Goods{" +
+                "ID=" + ID +
+                ", name='" + name + '\'' +
+                ", unity='" + unity + '\'' +
+                ", pricePerUnit=" + pricePerUnit +
+                ", description='" + description + '\'' +
+                ", isActive=" + isActive +
+                '}';
     }
 
     public int getID() {

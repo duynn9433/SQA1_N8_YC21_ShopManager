@@ -1,6 +1,8 @@
 package com.duynn.sqa1_n8_yc21_shopmanager.model;
 
-public class BuyingGoods {
+import java.io.Serializable;
+
+public class BuyingGoods implements Serializable {
     private int ID;
     private int amount;
     private long pricePerUnit;

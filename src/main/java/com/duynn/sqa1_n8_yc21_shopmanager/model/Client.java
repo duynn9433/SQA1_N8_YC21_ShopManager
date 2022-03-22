@@ -17,6 +17,16 @@ public class Client implements Serializable {
     private String phoneNumber;
     private boolean isActive;
 
+    @Override
+    public String toString() {
+        return "Client{" +
+                "ID=" + ID +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", isActive=" + isActive +
+                '}';
+    }
 
     public int getID() {
         return ID;

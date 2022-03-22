@@ -1,13 +1,10 @@
 package com.duynn.sqa1_n8_yc21_shopmanager.DAO;
 
-import com.duynn.sqa1_n8_yc21_shopmanager.model.Bill;
 import com.duynn.sqa1_n8_yc21_shopmanager.model.BuyingGoods;
-import com.duynn.sqa1_n8_yc21_shopmanager.model.User;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +26,7 @@ public class BuyingGoodsDAO extends DAO{
                b.setID(rs.getInt("id"));
                b.setAmount(rs.getInt("amount"));
                b.setPricePerUnit(rs.getLong("pricePerUnit"));
-               b.setTotalPrice(rs.getLong("totalPrice"));
+//               b.setTotalPrice(rs.getLong("totalPrice")); dẫn xuất
                b.setNote(rs.getString("note"));
                b.setGoods(new GoodsDAO().getGoods(rs.getInt("goodId")));
                ps.executeQuery();
@@ -82,4 +79,23 @@ public class BuyingGoodsDAO extends DAO{
 
     }
 
+    public void save(BuyingGoods b, int id) {
+        try {
+            con.setAutoCommit(false);
+            String sql = "INSERT INTO `shop_manager`.`buying_goods` (`amount`, `pricePerUnit`, `billId`, `goodsId`) " +
+                    "VALUES (?, ?, ?, ?) ";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1,b.getAmount());
+            ps.setLong(2,b.getPricePerUnit());
+            ps.setInt(3,id);
+            ps.setInt(4,b.getGoods().getID());
+
+            ps.execute();
+            con.commit();
+            con.setAutoCommit(true);
+            ps.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
 }

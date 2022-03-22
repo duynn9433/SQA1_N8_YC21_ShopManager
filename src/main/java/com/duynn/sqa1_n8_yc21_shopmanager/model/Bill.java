@@ -1,10 +1,11 @@
 package com.duynn.sqa1_n8_yc21_shopmanager.model;
 
-import java.sql.Date;
+import java.io.Serializable;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class Bill {
+public class Bill implements Serializable {
 
     private int id;
     private LocalDateTime paymentDate;
@@ -17,8 +18,27 @@ public class Bill {
     private Client client;
     private ArrayList<BuyingGoods> buyingGoodsList;
 
+    public void reCalPaymentTotal() {
+        paymentTotal =0;
+        for (BuyingGoods buyingGoods:buyingGoodsList) {
+            paymentTotal+=buyingGoods.getTotalPrice();
+        }
+    }
+    public void addBuyingGoods(BuyingGoods buyingGoods) {
+        for (int i =0 ;i<buyingGoodsList.size();i++) {
+            BuyingGoods b =buyingGoodsList.get(i);
+            if(b.getGoods().getName().equals(buyingGoods.getGoods().getName())){
+                b.setAmount(b.getAmount()+buyingGoods.getAmount());
+                b.setTotalPrice(b.getPricePerUnit()*b.getAmount());
+                return;
+            }
+        }
+        buyingGoodsList.add(buyingGoods);
+    }
     public Bill() {
-
+        buyingGoodsList = new ArrayList<>();
+        isActive = true;
+        isPaid = false;
     }
 
     public Bill(int id, LocalDateTime paymentDate, long paymentTotal, float saleOf, String note, boolean isPaid, boolean isActive, User user, Client client, ArrayList<BuyingGoods> buyingGoodsList) {
@@ -113,4 +133,7 @@ public class Bill {
     public void setBuyingGoodsList(ArrayList<BuyingGoods> buyingGoodsList) {
         this.buyingGoodsList = buyingGoodsList;
     }
+
+
+
 }

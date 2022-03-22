@@ -48,7 +48,7 @@ public class EditBillServlet extends HttpServlet {
 
             Bill bill = new Bill();
             bill.setId(id);
-            bill.setPaymentDate(paymentDate);
+//            bill.setPaymentDate(paymentDate);
             bill.setPaymentTotal(paymentTotal);
             bill.setSaleOf(saleOf);
             bill.setNote(note);

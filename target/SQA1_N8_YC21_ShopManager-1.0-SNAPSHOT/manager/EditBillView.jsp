@@ -34,16 +34,16 @@
         </tr>
         <tr class="tbl-row">
             <td>Ngày thanh toán:</td>
-            <td><input class="form-control" type="text" name="paymentDate" value="${paymentDate}" required></td>
+            <td><input class="form-control" type="datetime-local" name="paymentDate" value="${paymentDate}" required></td>
         </tr>
         <tr class="tbl-row">
             <td>Tổng thanh toán:</td>
             <td><input class="form-control" type="text" name="paymentTotal" value="${paymentTotal}" required></td>
         </tr>
-        <tr class="tbl-row">
-            <td>Phương thức thanh toán:</td>
-            <td><input class="form-control" type="text" name="paymentType" value="${paymentType}" required></td>
-        </tr>
+<%--        <tr class="tbl-row">--%>
+<%--            <td>Phương thức thanh toán:</td>--%>
+<%--            <td><input class="form-control" type="text" name="paymentType" value="${paymentType}" required></td>--%>
+<%--        </tr>--%>
         <tr class="tbl-row">
             <td>Giảm giá:</td>
             <td><input class="form-control" type="text" name="saleOf" value="${saleOf}" required></td>

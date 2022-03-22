@@ -14,8 +14,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Manager Home View</title>
 
-    <link rel="stylesheet" href="bootstraplib/bootstrap.4.0.0.min.css"
-          crossorigin="anonymous">
+    <link rel="stylesheet" href="bootstraplib/bootstrap.4.0.0.min.css"crossorigin="anonymous">
     <script src="bootstraplib/jquery-3.2.1.js" crossorigin="anonymous"></script>
     <script src="bootstraplib/popper.min.js" crossorigin="anonymous"></script>
     <script src="bootstraplib/bootstrap.min.js" crossorigin="anonymous"></script>
