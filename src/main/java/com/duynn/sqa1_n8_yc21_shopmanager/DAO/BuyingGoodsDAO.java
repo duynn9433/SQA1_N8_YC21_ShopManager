@@ -31,7 +31,8 @@ public class BuyingGoodsDAO extends DAO{
                b.setGoods(new GoodsDAO().getGoods(rs.getInt("goodId")));
                ps.executeQuery();
             }
-
+            ps.close();
+            rs.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

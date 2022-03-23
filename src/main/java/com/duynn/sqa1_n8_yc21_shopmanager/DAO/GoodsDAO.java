@@ -30,7 +30,8 @@ public class GoodsDAO extends DAO{
                     g.setActive(rs.getBoolean("isActive"));
                 }
             }
-
+            ps.close();
+            rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -55,7 +56,8 @@ public class GoodsDAO extends DAO{
                 if(g.isActive())
                     list.add(g);
             }
-
+            ps.close();
+            rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
