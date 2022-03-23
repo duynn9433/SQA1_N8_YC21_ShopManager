@@ -13,9 +13,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Array;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -100,6 +102,15 @@ public class ManagementClientServlet extends HttpServlet {
             List<Client> list = new ArrayList<>();
             session.setAttribute("listClient", list);
             url = "/manager/ManagementClientView.jsp";
+            FileWriter fw = new FileWriter("dblog.txt",true);
+            String log = ""
+                    + LocalDateTime.now() + ": "
+                    + "delete" + " "
+                    + "Client "
+                    + String.valueOf(request.getParameter("id")) + " "
+                    + res + "\r\n";
+            fw.write(log);
+            fw.close();
             context.getRequestDispatcher(url).forward(request, response);
         } catch (SQLException e) {
             e.printStackTrace();

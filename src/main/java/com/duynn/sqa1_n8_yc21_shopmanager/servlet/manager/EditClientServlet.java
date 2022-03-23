@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,10 +22,10 @@ public class EditClientServlet extends HttpServlet {
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
-     * @param request servlet request
+     * @param request  servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws IOException      if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -54,7 +56,18 @@ public class EditClientServlet extends HttpServlet {
                 boolean success = clientDAO.editClient(client);
                 System.out.printf(success + "");
                 url = "/manager/ManagementClientView.jsp";
-            } catch (Exception e){
+
+                // dblog.txt ở trong folder tomcat\bin
+                FileWriter fw = new FileWriter("dblog.txt", true);
+                String log = ""
+                        + LocalDateTime.now() + ": "
+                        + action + " "
+                        + client.getClass().getSimpleName() + " "
+                        + String.valueOf(client.getID()) + " "
+                        + success + "\r\n";
+                fw.write(log);
+                fw.close();
+            } catch (Exception e) {
 
             }
         }
