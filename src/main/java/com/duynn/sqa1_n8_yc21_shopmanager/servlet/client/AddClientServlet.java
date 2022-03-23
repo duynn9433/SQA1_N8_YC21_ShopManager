@@ -45,7 +45,9 @@ public class AddClientServlet extends HttpServlet {
                 if(status.equals("add_from_sell")){
                     try {
                         new ClientDAO().addClient(client);
-                        getServletContext().getRequestDispatcher("/selling/SellingHome.jsp").forward(request, response);
+                        request.getSession().setAttribute("addClientMsg","luu thanh cong");
+                        getServletContext().getRequestDispatcher("/client/AddSuccess.jsp").forward(request, response);
+
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
@@ -53,7 +55,8 @@ public class AddClientServlet extends HttpServlet {
             }
             try {
                 new ClientDAO().addClient(client);
-                getServletContext().getRequestDispatcher("/seller/SellerHome.jsp").forward(request, response);
+                request.getSession().setAttribute("addClientMsg","luu thanh cong");
+                getServletContext().getRequestDispatcher("/client/AddSuccess.jsp").forward(request, response);
             } catch (SQLException e) {
                 e.printStackTrace();
             }

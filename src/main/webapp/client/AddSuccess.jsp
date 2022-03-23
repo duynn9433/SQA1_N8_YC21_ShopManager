@@ -14,6 +14,23 @@
 </head>
 <body>
 
+<%
+    String msg = (String) request.getSession().getAttribute("addClientMsg");
+    System.out.println("View" + msg);
+
+    if (msg!=null){
+%>
+<script type="text/javascript">
+    var msg = "${addClientMsg}";
+    alert(msg);
+    window.location.href='seller/SellerHome.jsp';
+</script>
+<%
+        request.getSession().removeAttribute("addClientMsg");
+    }
+%>
+
+
 <h3>Thông tin khách hàng</h3>
 <table cellpadding="2" cellspacing="2" border="1">
     <tr>

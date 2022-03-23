@@ -24,6 +24,21 @@
 </head>
 <body>
 <body>
+    <%
+    String msg = (String) request.getSession().getAttribute("confirmBillMsg");
+    System.out.println("View" + msg);
+
+    if (msg!=null){
+    %>
+    <script type="text/javascript">
+        var msg = "${confirmBillMsg}";
+         alert(msg);
+        window.location.href='/SQA1_N8_YC21_ShopManager_war/SellServlet?';
+    </script>
+    <%
+        request.getSession().removeAttribute("confirmBillMsg");
+    }
+    %>
 <div class="container-fluid">
     <div class="table-responsive">
         <table class="table">

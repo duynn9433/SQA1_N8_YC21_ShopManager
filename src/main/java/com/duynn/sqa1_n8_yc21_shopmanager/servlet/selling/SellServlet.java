@@ -107,8 +107,8 @@ public class SellServlet extends HttpServlet {
             Bill bill = (Bill) session.getAttribute("bill");
             bill.setPaid(true);
             new BillDAO().save(bill);
-
-            url="/selling/SellingHome.jsp";
+            request.getSession().setAttribute("confirmBillMsg", "Luu thanh cong");
+            url="/selling/Confirm.jsp";
         }else if(action.equals("cancel_bill")){
             session.removeAttribute("bill");
             url="/seller/SellerHome.jsp";
