@@ -1,6 +1,7 @@
 package com.duynn.sqa1_n8_yc21_shopmanager.servlet.client;
 
 import com.duynn.sqa1_n8_yc21_shopmanager.DAO.ClientDAO;
+import com.duynn.sqa1_n8_yc21_shopmanager.model.Bill;
 import com.duynn.sqa1_n8_yc21_shopmanager.model.Client;
 
 import javax.servlet.*;
@@ -45,8 +46,11 @@ public class AddClientServlet extends HttpServlet {
                 if(status.equals("add_from_sell")){
                     try {
                         new ClientDAO().addClient(client);
+                        Bill bill = (Bill) request.getSession().getAttribute("bill");
+                        bill.setClient(client);
+                        request.getSession().setAttribute("bill", bill);
                         request.getSession().setAttribute("addClientMsg","luu thanh cong");
-                        getServletContext().getRequestDispatcher("/client/AddSuccess.jsp").forward(request, response);
+                        getServletContext().getRequestDispatcher("/selling/SellingHome.jsp").forward(request, response);
 
                     } catch (SQLException e) {
                         e.printStackTrace();

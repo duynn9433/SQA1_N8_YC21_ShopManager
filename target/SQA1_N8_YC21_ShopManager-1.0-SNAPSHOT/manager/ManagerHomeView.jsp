@@ -11,7 +11,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Manager Home View</title>
+    <title>Trang chủ quản lí </title>
 
     <link rel="stylesheet" href="bootstraplib/bootstrap.4.0.0.min.css"crossorigin="anonymous">
     <script src="bootstraplib/jquery-3.2.1.js" crossorigin="anonymous"></script>
@@ -36,7 +36,7 @@
     </div>
     <div class="row" style="margin-top:20px;">
         <div class="col-12 text-center">
-            <h1>Manager's Home</h1>
+            <h1>Trang chủ quản lý</h1>
         </div>
     </div>
     <div class="row ">
@@ -44,25 +44,6 @@
             <form action="<c:url value="/manager/ManagementClientView.jsp"/>" method="get">
                 <input class="btn btn-primary" type="submit" value="Quản lý thông tin khách hàng">
             </form>
-        </div>
-    </div>
-</div>
-
-<div class="container">
-    <div class="row">
-        <div class="col-sm-4">
-            <form action="<c:url value="/ManagementBillServlet"/>" method="post">
-                <input class="btn btn-danger" type="submit" value="edit">
-            </form>
-        </div>
-        <div class="col-sm-4"></div>
-        <div class="col-sm-4">
-            <h3> </h3>
-        </div>
-    </div>
-    <div class="row" style="margin-top:20px;">
-        <div class="col-12 text-center">
-            <h1>Manager's Bill</h1>
         </div>
     </div>
     <div class="row ">

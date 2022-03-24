@@ -33,7 +33,7 @@
     <script type="text/javascript">
         var msg = "${confirmBillMsg}";
          alert(msg);
-        window.location.href='/SQA1_N8_YC21_ShopManager_war/SellServlet?';
+        window.location.href='"/seller/SellerHome.jsp";';
     </script>
     <%
         request.getSession().removeAttribute("confirmBillMsg");

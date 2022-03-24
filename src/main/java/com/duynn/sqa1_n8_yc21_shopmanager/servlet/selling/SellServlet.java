@@ -41,7 +41,7 @@ public class SellServlet extends HttpServlet {
             List<Goods> goodsList = new GoodsDAO().searchByName(request.getParameter("goodsname"));
             session.setAttribute("goodsList",goodsList);
             session.setAttribute("status","add_from_sell");
-            url="/seller/AddClient.jsp";
+            url="/client/AddClient.jsp";
 
         }else if(action.equals("confirm_bill")){
             session.removeAttribute("goodsList");
@@ -107,8 +107,9 @@ public class SellServlet extends HttpServlet {
             Bill bill = (Bill) session.getAttribute("bill");
             bill.setPaid(true);
             new BillDAO().save(bill);
-            request.getSession().setAttribute("confirmBillMsg", "Luu thanh cong");
-            url="/selling/Confirm.jsp";
+            session.removeAttribute("bill");
+            request.getSession().setAttribute("confirmBillMsg", "Lưu thành công");
+            url="/seller/SellerHome.jsp";
         }else if(action.equals("cancel_bill")){
             session.removeAttribute("bill");
             url="/seller/SellerHome.jsp";

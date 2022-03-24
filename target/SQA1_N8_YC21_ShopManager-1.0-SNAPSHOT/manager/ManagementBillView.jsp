@@ -7,7 +7,6 @@
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!--<!DOCTYPE html>-->
 <html>
 <head>
@@ -39,14 +38,14 @@
 <%--    </div>--%>
     <div class="row" style="margin-top:20px;">
         <div class="col-12 text-center">
-            <h1>Bill Management</h1>
+            <h1>Quản lí hoá đơn</h1>
         </div>
     </div>
     <div class="row ">
         <div class="col-12 text-center">
             <form class="form-inline" action="<c:url value="/ManagementBillServlet"/>" method="POST">
                 <div class="input-group">
-                    <input type="text" class="form-control" size="80" placeholder="SĐT của Khách hàng"
+                    <input type="text" class="form-control" size="80" placeholder="id của đơn hàng"
                            name="search_id">
                     <input class="btn btn-primary" type="submit" name="search" value="Tìm kiếm">
                     <input type="hidden" name="action" value="search">
@@ -56,24 +55,24 @@
             <table cellspacing="6" cellpadding="6" border="1">
                 <tr>
                     <th>id</th>
-                    <th>paymentDate</th>
+                    <th>Ngày mua hàng</th>
 <%--                    <th>Tên</th>--%>
-                    <th>saleOf</th>
-                    <th>note</th>
+                    <th>giảm giá</th>
+                    <th>chú ý</th>
                 </tr>
 
                 <c:forEach var="b" items="${listBill}" varStatus="status">
                     <tr valign="top">
                         <td>${b.id}</td>
                         <td>${b.paymentDate}</td>
-                        <td>${b.saleOf}</td>
+                        <td>${b.saleOff}</td>
                         <td>${b.note}</td>
                         <td>
                             <form action="<c:url value="/ManagementBillServlet"/>" method="POST">
                                 <input type="hidden" name="eid" value="${b.id}">
                                 <input type="hidden" name="epaymentDate" value="${b.paymentDate}">
 <%--                                <input type="hidden" name="ename" value="${i.name}">--%>
-                                <input type="hidden" name="esaleOf" value="${b.saleOf}">
+                                <input type="hidden" name="esaleOff" value="${b.saleOff}">
                                 <input type="hidden" name="enote" value="${b.note}">
                                 <input type="submit" class="btn btn-primary" value="Sửa" name="edit">
                                 <input type="hidden" name="action" value="edit">

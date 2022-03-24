@@ -29,14 +29,14 @@
 
         <div class="col-sm-4">
             <form action="<c:url value="/sellerHomeServlet"/>" method="post">
-                <input class="btn btn-danger" type="submit" value="Log out">
+                <input class="btn btn-danger" type="submit" value="Đăng xuất">
             </form>
         </div>
 
         <div class="col-sm-4"></div>
 
         <div class="col-sm-4">
-            <h3>Logged in as: ${user.name} </h3>
+            <h3>Chào: ${user.name} </h3>
         </div>
 
     </div>
