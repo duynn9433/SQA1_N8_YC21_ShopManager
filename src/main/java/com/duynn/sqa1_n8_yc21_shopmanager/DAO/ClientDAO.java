@@ -40,6 +40,7 @@ public class ClientDAO extends DAO {
 
         con.commit();
         con.setAutoCommit(true);
+        ps.close();
     }
 
     public Client getClient(int clientID){
@@ -70,6 +71,8 @@ public class ClientDAO extends DAO {
                 res.add(c);
             }
         }
+        ps.close();
+        rs.close();
         return res;
     }
 
@@ -89,6 +92,7 @@ public class ClientDAO extends DAO {
             con.commit();
             con.setAutoCommit(true);
             success = true;
+            ps.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -107,6 +111,7 @@ public class ClientDAO extends DAO {
             con.commit();
             con.setAutoCommit(true);
             success = true;
+            ps.close();
         }catch (SQLException e){
             e.printStackTrace();
         }

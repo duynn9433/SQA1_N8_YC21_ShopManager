@@ -44,7 +44,8 @@ public class UserDAO extends DAO {
             }
 
         }
-
+        ps.close();
+        rs.close();
         return result;
     }
 
@@ -70,7 +71,8 @@ public class UserDAO extends DAO {
                 u.setUsername(rs.getString("username"));
                 res.add(u);
             }
-
+            ps.close();
+            rs.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

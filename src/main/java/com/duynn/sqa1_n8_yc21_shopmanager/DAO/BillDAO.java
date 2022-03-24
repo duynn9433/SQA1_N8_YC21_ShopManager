@@ -33,6 +33,8 @@ public class BillDAO extends DAO{
                 bill.setActive(rs.getBoolean("isActive"));
                 if(bill.isActive()) result.add(bill);
             }
+            ps.close();
+            rs.close();
         }catch(Exception e){
             e.printStackTrace();
         }
