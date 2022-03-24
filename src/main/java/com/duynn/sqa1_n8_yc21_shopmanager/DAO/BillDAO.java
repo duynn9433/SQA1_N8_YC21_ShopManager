@@ -27,7 +27,7 @@ public class BillDAO extends DAO{
                 bill.setId(rs.getInt("id"));
                 bill.setPaymentDate(rs.getTimestamp("paymentDate").toLocalDateTime());
 //                bill.setPaymentTotal(rs.getLong("paymentTotal")); dẫn xuất tự tính
-                bill.setSaleOf(rs.getFloat("saleOf"));
+                bill.setSaleOff(rs.getFloat("saleOff"));
                 bill.setNote(rs.getString("note"));
                 bill.setPaid(rs.getBoolean("isPaid"));
                 bill.setActive(rs.getBoolean("isActive"));
@@ -47,11 +47,11 @@ public class BillDAO extends DAO{
         boolean success = false;
         try {
             con.setAutoCommit(false);
-            String sql = "UPDATE bill SET paymentDate= ?,saleOf=?,note=? WHERE id=?;";
+            String sql = "UPDATE bill SET paymentDate= ?,saleOff=?,note=? WHERE id=?;";
             PreparedStatement ps = con.prepareStatement(sql);
 
             ps.setTimestamp(1, Timestamp.valueOf(bill.getPaymentDate()));
-            ps.setFloat(2,bill.getSaleOf());
+            ps.setFloat(2,bill.getSaleOff());
             ps.setString(3,bill.getNote());
             ps.setString(4, String.valueOf(bill.getId()));
             ps.executeUpdate();
@@ -110,7 +110,7 @@ public class BillDAO extends DAO{
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1,bill.getId());
             ps.setTimestamp(2,Timestamp.valueOf(bill.getPaymentDate()));
-            ps.setFloat(3,bill.getSaleOf());
+            ps.setFloat(3,bill.getSaleOff());
             ps.setBoolean(4,bill.isPaid());
             ps.setBoolean(5,bill.isActive());
             ps.setInt(6,bill.getUser().getID());

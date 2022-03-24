@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Array;
 import java.sql.Date;
@@ -37,13 +38,13 @@ public class EditBillServlet extends HttpServlet {
             System.out.println("ccccccccc");
             int id = Integer.parseInt(request.getParameter("id"));
             LocalDateTime paymentDate = LocalDateTime.parse(request.getParameter("paymentDate"));
-            float saleOf = Float.parseFloat(request.getParameter("saleOf"));
+            float saleOff = Float.parseFloat(request.getParameter("saleOff"));
             String note = request.getParameter("note");
 
             Bill bill = new Bill();
             bill.setId(id);
             bill.setPaymentDate(paymentDate);
-            bill.setSaleOf(saleOf);
+            bill.setSaleOff(saleOff);
             bill.setNote(note);
 
             System.out.println(bill);
@@ -52,6 +53,16 @@ public class EditBillServlet extends HttpServlet {
                 boolean success = billDAO.editBill(bill);
                 System.out.printf(success + "");
                 url = "/manager/ManagementBillView.jsp";
+
+                FileWriter fw = new FileWriter("dblog.txt",true);
+                String log =""
+                        + LocalDateTime.now()+": "
+                        +action+""
+                        + bill.getClass().getSimpleName()+""
+                        +String.valueOf(bill.getId())+" "
+                        +success+"\r\n";
+                fw.write(log);
+                fw.close();
             } catch (Exception e){
 
             }

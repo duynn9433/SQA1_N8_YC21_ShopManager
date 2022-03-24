@@ -46,7 +46,7 @@
 <%--        </tr>--%>
         <tr class="tbl-row">
             <td>Giảm giá:</td>
-            <td><input class="form-control" type="text" name="saleOf" value="${saleOf}" required></td>
+            <td><input class="form-control" type="text" name="saleOff" value="${saleOff}" required></td>
         </tr>
         <tr class="tbl-row">
             <td>Chú thích:</td>

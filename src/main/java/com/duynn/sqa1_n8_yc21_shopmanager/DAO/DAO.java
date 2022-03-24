@@ -15,7 +15,7 @@ public class DAO {
             String dbClass = "com.mysql.cj.jdbc.Driver";
             try {
                 Class.forName(dbClass);
-                con = DriverManager.getConnection (dbUrl, "root", "root");
+                con = DriverManager.getConnection (dbUrl, "root", "123456789");
             }catch(ClassNotFoundException | SQLException e) {
                 System.out.println(e);
             }

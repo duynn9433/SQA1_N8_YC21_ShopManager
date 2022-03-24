@@ -11,7 +11,7 @@ public class Bill implements Serializable {
     private int id;
     private LocalDateTime paymentDate;
     private long paymentTotal;
-    private float saleOf;
+    private float saleOff;
     private String note;
     private boolean isPaid;
     private boolean isActive;
@@ -48,7 +48,7 @@ public class Bill implements Serializable {
                 "id=" + id +
                 ", paymentDate=" + paymentDate +
                 ", paymentTotal=" + paymentTotal +
-                ", saleOf=" + saleOf +
+                ", saleOf=" + saleOff +
                 ", note='" + note + '\'' +
                 ", isPaid=" + isPaid +
                 ", isActive=" + isActive +
@@ -58,11 +58,11 @@ public class Bill implements Serializable {
                 '}';
     }
 
-    public Bill(int id, LocalDateTime paymentDate, long paymentTotal, float saleOf, String note, boolean isPaid, boolean isActive, User user, Client client, ArrayList<BuyingGoods> buyingGoodsList) {
+    public Bill(int id, LocalDateTime paymentDate, long paymentTotal, float saleOff, String note, boolean isPaid, boolean isActive, User user, Client client, ArrayList<BuyingGoods> buyingGoodsList) {
         this.id = id;
         this.paymentDate = paymentDate;
         this.paymentTotal = paymentTotal;
-        this.saleOf = saleOf;
+        this.saleOff = saleOff;
         this.note = note;
         this.isPaid = isPaid;
         this.isActive = isActive;
@@ -95,12 +95,12 @@ public class Bill implements Serializable {
         this.paymentTotal = paymentTotal;
     }
 
-    public float getSaleOf() {
-        return saleOf;
+    public float getSaleOff() {
+        return saleOff;
     }
 
-    public void setSaleOf(float saleOf) {
-        this.saleOf = saleOf;
+    public void setSaleOff(float saleOf) {
+        this.saleOff = saleOf;
     }
 
     public String getNote() {
