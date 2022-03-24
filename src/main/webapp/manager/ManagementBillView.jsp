@@ -7,7 +7,6 @@
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!--<!DOCTYPE html>-->
 <html>
 <head>
@@ -39,7 +38,7 @@
 <%--    </div>--%>
     <div class="row" style="margin-top:20px;">
         <div class="col-12 text-center">
-            <h1>Bill Management</h1>
+            <h1>Quản lí hoá đơn</h1>
         </div>
     </div>
     <div class="row ">

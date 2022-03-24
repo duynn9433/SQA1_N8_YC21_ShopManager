@@ -43,7 +43,7 @@
 
     <div class ="row" style = "margin-top:20px;">
         <div class="col-12 text-center">
-            <h1>Seller's Home</h1>
+            <h1>Trang chủ nhân viên bán hàng</h1>
         </div>
     </div>
 
