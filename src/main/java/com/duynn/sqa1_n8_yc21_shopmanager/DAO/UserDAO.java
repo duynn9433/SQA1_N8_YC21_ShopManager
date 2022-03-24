@@ -19,6 +19,11 @@ public class UserDAO extends DAO {
     /**
      * @author nguyen ngoc duy
      */
+
+    public  User getUser(int userId){
+        return new User();
+    }
+
     public boolean checkLogin(User user) throws SQLException {
         boolean result = false;
         String sql = "SELECT * FROM user WHERE username = ? AND password = ?";

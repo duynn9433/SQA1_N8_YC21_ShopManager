@@ -43,6 +43,7 @@ public class EditClientServlet extends HttpServlet {
             String name = request.getParameter("name");
             String address = request.getParameter("address");
             String phoneNumber = request.getParameter("phoneNumber");
+
             Client client = new Client();
             client.setID(id);
             client.setName(name);

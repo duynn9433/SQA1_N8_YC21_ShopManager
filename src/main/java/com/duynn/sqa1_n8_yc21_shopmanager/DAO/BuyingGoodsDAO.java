@@ -28,7 +28,7 @@ public class BuyingGoodsDAO extends DAO{
                b.setPricePerUnit(rs.getLong("pricePerUnit"));
 //               b.setTotalPrice(rs.getLong("totalPrice")); dẫn xuất
                b.setNote(rs.getString("note"));
-               b.setGoods(new GoodsDAO().getGoods(rs.getInt("goodId")));
+               b.setGoods(new GoodsDAO().getGoods(rs.getInt("id")));
                ps.executeQuery();
             }
 

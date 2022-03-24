@@ -35,9 +35,10 @@ public class ManagementBillServlet extends HttpServlet {
         String action = request.getParameter("action");
         System.out.println("action " + action);
         if (action.equals("search")) {
-            String date = request.getParameter("search_id");
+            System.out.println("aaaa");
+            String id = request.getParameter("search_id");
             try {
-                List<Bill> list = new ArrayList<>(billDAO.searchBill(date));
+                List<Bill> list = new ArrayList<>(billDAO.searchBill(id));
                 session.setAttribute("listBill", list);
                 url = "/manager/ManagementBillView.jsp";
             } catch (Exception e){
@@ -46,49 +47,36 @@ public class ManagementBillServlet extends HttpServlet {
         }
 
         if(action.equals("edit")){
+            System.out.println("bbbbb");
             String eid = request.getParameter("eid");
             LocalDateTime epaymentDate = LocalDateTime.parse(request.getParameter("epaymentDate"));
-            long epaymentTotal = Long.parseLong(request.getParameter("epaymentTotal"));
             float esaleOf = Float.parseFloat(request.getParameter("esaleOf"));
             String enote = request.getParameter("enote");
-            Boolean eisPaid = Boolean.valueOf(request.getParameter("eisPaid"));
-            Boolean eisActive = Boolean.valueOf(request.getParameter("eisActive"));
-            // buyinggoods
-
 
             session.setAttribute("id",eid);
             session.setAttribute("paymentDate",epaymentDate);
-            session.setAttribute("paymentTotal",epaymentTotal);
-           // session.setAttribute("paymentType",epaymentType);
             session.setAttribute("saleOf",esaleOf);
             session.setAttribute("note",enote);
-            session.setAttribute("isPaid",eisPaid);
-            session.setAttribute("isActive",eisActive);
+
             url = "/manager/EditBillView.jsp";
         }
 
         if(action.equals("delete")){
-            System.out.println("delete");
-            String did = request.getParameter("did");
-           LocalDateTime dpaymentDate = LocalDateTime.parse(request.getParameter("dpaymentDate"));
-            long dpaymentTotal = Long.parseLong(request.getParameter("dpaymentTotal"));
-            float dsaleOf = Float.parseFloat(request.getParameter("dsaleOf"));
-            String dnote = request.getParameter("dnote");
-            Boolean disPaid = Boolean.valueOf(request.getParameter("disPaid"));
-            Boolean disActive = Boolean.valueOf(request.getParameter("disActive"));
-
-            Bill bill = new Bill();
-            bill.setId(Integer.parseInt(did));
-            bill.setPaymentDate(dpaymentDate);
-            bill.setPaymentTotal(dpaymentTotal);
-            bill.setSaleOf(dsaleOf);
-            bill.setNote(dnote);
-            bill.setPaid(disPaid);
-            bill.setActive(disActive);
-
-            boolean success = billDAO.deleteBill(bill);
-            System.out.printf(success + "");
-            url = "/manager/ManagementBillView.jsp";
+//            System.out.println("delete");
+//            String did = request.getParameter("did");
+//            LocalDateTime dpaymentDate = LocalDateTime.parse(request.getParameter("dpaymentDate"));
+//            float dsaleOf = Float.parseFloat(request.getParameter("dsaleOf"));
+//            String dnote = request.getParameter("dnote");
+//
+//            Bill bill = new Bill();
+//            bill.setId(Integer.parseInt(did));
+//            bill.setPaymentDate(dpaymentDate);
+//            bill.setSaleOf(dsaleOf);
+//            bill.setNote(dnote);
+//
+//            boolean success = billDAO.deleteBill(bill);
+//            System.out.printf(success + "");
+//            url = "/manager/ManagementBillView.jsp";
         }
 
         context.getRequestDispatcher(url).forward(request, response);
@@ -96,8 +84,20 @@ public class ManagementBillServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        try {
+//            processRequest(request, response);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+        ServletContext context = getServletContext();
+        String url = "/manager/ManagementBillView.jsp";
         try {
-            processRequest(request, response);
+            HttpSession session = request.getSession();
+            Boolean res = new BillDAO().deleteBill(request.getParameter("id"));
+            List<Bill> list = new ArrayList<>();
+            session.setAttribute("listBill", list);
+            url = "/manager/ManagementBillView.jsp";
+            context.getRequestDispatcher(url).forward(request, response);
         } catch (SQLException e) {
             e.printStackTrace();
         }

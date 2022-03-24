@@ -38,7 +38,7 @@
         </tr>
         <tr class="tbl-row">
             <td>Tổng thanh toán:</td>
-            <td><input class="form-control" type="text" name="paymentTotal" value="${paymentTotal}" required></td>
+            <td><input class="form-control" type="hidden" name="paymentTotal" value="${paymentTotal}" required></td>
         </tr>
 <%--        <tr class="tbl-row">--%>
 <%--            <td>Phương thức thanh toán:</td>--%>

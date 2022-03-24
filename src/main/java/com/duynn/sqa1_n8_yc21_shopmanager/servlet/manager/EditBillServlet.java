@@ -34,29 +34,21 @@ public class EditBillServlet extends HttpServlet {
         BillDAO billDAO = new BillDAO();
         String action = request.getParameter("action");
         if (action.equals("edit")) {
-
+            System.out.println("ccccccccc");
             int id = Integer.parseInt(request.getParameter("id"));
             LocalDateTime paymentDate = LocalDateTime.parse(request.getParameter("paymentDate"));
-            long paymentTotal  = Long.parseLong(request.getParameter("paymentTotal"));
-            String paymentType = request.getParameter("paymentType");
             float saleOf = Float.parseFloat(request.getParameter("saleOf"));
             String note = request.getParameter("note");
-            Boolean isPaid= Boolean.valueOf(request.getParameter("isPaid"));
-            Boolean isActive = Boolean.valueOf(request.getParameter("isActive"));
-            //Array BuyingGoods = request.getParameter("")
-
 
             Bill bill = new Bill();
             bill.setId(id);
-//            bill.setPaymentDate(paymentDate);
-            bill.setPaymentTotal(paymentTotal);
+            bill.setPaymentDate(paymentDate);
             bill.setSaleOf(saleOf);
             bill.setNote(note);
-            bill.setPaid(isPaid);
-            bill.setActive(isActive);
 
             System.out.println(bill);
             try {
+                System.out.println("dddđ");
                 boolean success = billDAO.editBill(bill);
                 System.out.printf(success + "");
                 url = "/manager/ManagementBillView.jsp";

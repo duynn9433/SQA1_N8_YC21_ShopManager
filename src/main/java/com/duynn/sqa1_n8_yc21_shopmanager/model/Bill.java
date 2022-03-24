@@ -3,6 +3,7 @@ package com.duynn.sqa1_n8_yc21_shopmanager.model;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Bill implements Serializable {
@@ -39,6 +40,22 @@ public class Bill implements Serializable {
         buyingGoodsList = new ArrayList<>();
         isActive = true;
         isPaid = false;
+    }
+
+    @Override
+    public String toString() {
+        return "Bill{" +
+                "id=" + id +
+                ", paymentDate=" + paymentDate +
+                ", paymentTotal=" + paymentTotal +
+                ", saleOf=" + saleOf +
+                ", note='" + note + '\'' +
+                ", isPaid=" + isPaid +
+                ", isActive=" + isActive +
+                ", user=" + user +
+                ", client=" + client +
+                ", buyingGoodsList=" + buyingGoodsList +
+                '}';
     }
 
     public Bill(int id, LocalDateTime paymentDate, long paymentTotal, float saleOf, String note, boolean isPaid, boolean isActive, User user, Client client, ArrayList<BuyingGoods> buyingGoodsList) {
@@ -134,6 +151,16 @@ public class Bill implements Serializable {
         this.buyingGoodsList = buyingGoodsList;
     }
 
+//    public void setPaymentDate(Timestamp paymentDate) {
+//           final LocalDateTime paymentDate1 = this.paymentDate;
+////           DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+////           paymentDate =Timestamp.valueOf(paymentDate1);
+//             Timestamp paymentDate11  = Timestamp.valueOf(paymentDate1.toString()) ;
+//    }
 
+
+//    public void setPaymentDate(LocalDateTime paymentDate) {
+//        this.paymentDate = paymentDate;
+//    }
 
 }
