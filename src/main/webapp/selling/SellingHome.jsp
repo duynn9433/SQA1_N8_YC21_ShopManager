@@ -76,15 +76,35 @@
                             <th>Đơn vị</th>
                             <th>Giá</th>
                             <th>Số lượng</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                        <c:forEach items="${bill.buyingGoodsList}" var="element">
+                        <c:forEach items="${bill.buyingGoodsList}" var="element" varStatus="status">
                             <tr>
                                 <td>${element.goods.name}</td>
                                 <td>${element.goods.unity}</td>
                                 <td>${element.goods.pricePerUnit}</td>
-                                <td>${element.amount}</td>
+<%--                                <td>${element.amount}</td>--%>
+                                <td>
+                                    <form action="<c:url value="/SellServlet"/>" method="post">
+                                        <input type="text" name="amount" placeholder="Số lượng mặt hàng"
+                                               value="${element.amount}" size="2" maxlength="5"/>
+                                        <input type="hidden" name="action" value="update_goods">
+                                        <input type="hidden" name="index" value="${status.count}">
+
+                                </td>
+                                <td>
+                                        <input type="submit" value="Update">
+                                    </form>
+                                </td>
+                                <td>
+                                    <form action="<c:url value="/SellServlet"/>" method="post">
+                                        <input type="hidden" name="action" value="remove_goods">
+                                        <input type="hidden" name="index" value="${status.count}">
+                                        <input type="submit" value="Remove">
+                                    </form>
+                                </td>
                             </tr>
                         </c:forEach>
 
@@ -146,7 +166,10 @@
                     <input type="hidden" name="action" value="add_client">
                     <button class="btn btn-primary" type="submit">Thêm khách hàng</button>
                 </form>
+                <br>
                 <form action="<c:url value="/SellServlet"/>" method="get">
+
+                    <label>Giảm giá: </label><input type="text" name="sale_off" value="0.0"> <br>
                     <input type="hidden" name="action" value="confirm_bill">
                     <button class="btn btn-primary" type="submit">Lưu hoá đơn</button>
                 </form>

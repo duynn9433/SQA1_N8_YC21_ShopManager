@@ -22,6 +22,7 @@ public class Bill implements Serializable {
     public void reCalPaymentTotal() {
         paymentTotal =0;
         for (BuyingGoods buyingGoods:buyingGoodsList) {
+            buyingGoods.reCalTotalPrice();
             paymentTotal+=buyingGoods.getTotalPrice();
         }
     }

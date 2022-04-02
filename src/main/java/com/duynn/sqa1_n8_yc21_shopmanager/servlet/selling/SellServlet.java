@@ -47,7 +47,9 @@ public class SellServlet extends HttpServlet {
             session.removeAttribute("goodsList");
             session.removeAttribute("listClient");
 
+
             Bill bill = (Bill) session.getAttribute("bill");
+            bill.setSaleOff(Float.parseFloat(request.getParameter("sale_off")));
             bill.setPaymentDate(LocalDateTime.now());
 
             url="/selling/Confirm.jsp";
@@ -113,6 +115,31 @@ public class SellServlet extends HttpServlet {
         }else if(action.equals("cancel_bill")){
             session.removeAttribute("bill");
             url="/seller/SellerHome.jsp";
+        }else if(action.equals("update_goods")){
+            Bill bill = (Bill) session.getAttribute("bill");
+            //update hang
+            int amount = Integer.parseInt(request.getParameter("amount"));
+            int index = Integer.parseInt(request.getParameter("index")) -1;
+            if(amount == 0) {
+                bill.getBuyingGoodsList().remove(index);
+            }else {
+                bill.getBuyingGoodsList().get(index).setAmount(amount);
+            }
+
+            //update tong tien bill
+            bill.reCalPaymentTotal();
+
+            session.setAttribute("bill",bill);
+            url="/selling/SellingHome.jsp";
+        }else if(action.equals("remove_goods")){
+            Bill bill = (Bill) session.getAttribute("bill");
+            int index = Integer.parseInt(request.getParameter("index")) -1 ;
+            bill.getBuyingGoodsList().remove(index);
+            bill.reCalPaymentTotal();
+
+            session.setAttribute("bill",bill);
+            url="/selling/SellingHome.jsp";
+
         }
         context.getRequestDispatcher(url).forward(request, response);
     }

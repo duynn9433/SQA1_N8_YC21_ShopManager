@@ -86,8 +86,6 @@ public class BillDAO extends DAO{
     }
 
     public void save(Bill bill) {
-
-
         try {
             //manual get id
             int billID;

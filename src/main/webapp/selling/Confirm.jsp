@@ -64,7 +64,9 @@
         </table>
     </div>
     <div>
-        <label>Tổng tiền: ${bill.paymentTotal}</label>
+        <label>Tổng tiền: ${bill.paymentTotal}</label><br>
+        <label>Giảm giá: ${bill.saleOff}</label><br>
+        <label>Thành tiền: ${bill.paymentTotal - bill.saleOff*bill.paymentTotal}</label><br>
     </div>
 
     <div>

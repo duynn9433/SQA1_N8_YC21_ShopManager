@@ -13,6 +13,10 @@ public class BuyingGoods implements Serializable {
     public BuyingGoods() {
     }
 
+    public  void reCalTotalPrice() {
+        this.totalPrice = this.amount * this.pricePerUnit;
+    }
+
     public BuyingGoods(int ID, int amount, long pricePerUnit, long totalPrice, String note, Goods goods) {
         this.ID = ID;
         this.amount = amount;
