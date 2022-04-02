@@ -120,7 +120,7 @@ public class SellServlet extends HttpServlet {
             //update hang
             int amount = Integer.parseInt(request.getParameter("amount"));
             int index = Integer.parseInt(request.getParameter("index")) -1;
-            if(amount == 0) {
+            if(amount <= 0) {
                 bill.getBuyingGoodsList().remove(index);
             }else {
                 bill.getBuyingGoodsList().get(index).setAmount(amount);

@@ -27,6 +27,13 @@ public class BillDAO extends DAO{
                 bill.setId(rs.getInt("id"));
                 bill.setPaymentDate(rs.getTimestamp("paymentDate").toLocalDateTime());
 //                bill.setPaymentTotal(rs.getLong("paymentTotal")); dẫn xuất tự tính
+//setpaymentTotal
+                long payment = 0;
+                for (int i =0 ;i<bill.getBuyingGoodsList().size();i++){
+                    BuyingGoods buyingGoods=bill.getBuyingGoodsList().get(i);
+                    payment = payment + buyingGoods.getTotalPrice();
+                }
+                bill.setPaymentTotal(payment);
                 bill.setSaleOff(rs.getFloat("saleOff"));
                 bill.setNote(rs.getString("note"));
                 bill.setPaid(rs.getBoolean("isPaid"));
@@ -40,6 +47,7 @@ public class BillDAO extends DAO{
         }
         return result;
     }
+
 
 
 
