@@ -22,8 +22,23 @@
     <%--        .container--%>
     <%--    </style>--%>
 </head>
+
 <body>
-<body>
+<%
+    String msg = (String) request.getSession().getAttribute("error");
+    System.out.println("View" + msg);
+
+    if (msg!=null && !msg.equals("")){
+        %>
+        <script type="text/javascript">
+            var msg = "<%= msg %>";
+            <%--var msg = "${error}";--%>
+            alert(msg);
+        </script>
+        <%
+        request.getSession().removeAttribute("error");
+    }
+%>
 <div class="container-fluid">
     <div class="container-xl" style="border:1px solid #cecece;">
         <div class="row">
