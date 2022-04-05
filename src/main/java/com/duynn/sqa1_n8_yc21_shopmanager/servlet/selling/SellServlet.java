@@ -30,13 +30,14 @@ public class SellServlet extends HttpServlet {
         if(action.equals("") || action==null){
             Bill bill = new Bill();
             bill.setUser((User) session.getAttribute("user"));
+            session.setAttribute("error",error);
             session.setAttribute("bill",bill);
             url="/selling/SellingHome.jsp";
 
         }else if(action.equals("search_goods")){
             List<Goods> goodsList = new GoodsDAO().searchByName(request.getParameter("goodsname"));
             if(goodsList.size()<=0){
-                error += "\nKhông tìm thấy sản phẩm nào";
+                error += "Không tìm thấy sản phẩm nào;";
             }
 
             request.getSession().setAttribute("error",error);
@@ -56,16 +57,25 @@ public class SellServlet extends HttpServlet {
 
 
             Bill bill = (Bill) session.getAttribute("bill");
+
             try {
                 float saleOff = Float.parseFloat(request.getParameter("sale_off"));
                 if(saleOff>1 || saleOff<0){
-                    error += "\nGiảm giá không hợp lệ (chỉ trong khoảng 0-1)";
+                    error += "Giảm giá không hợp lệ (chỉ trong khoảng 0-1);";
                     url="/selling/SellingHome.jsp";
+                }else{
+                    bill.setSaleOff(saleOff);
                 }
-                bill.setSaleOff(saleOff);
             }catch (NumberFormatException e){
                 bill.setSaleOff(0);
-                error += "\nSale off không hợp lệ";
+                error += "Sale off không hợp lệ;";
+                url="/selling/SellingHome.jsp";
+            }
+            if(bill.getClient()==null){
+                error+= "Vui lòng thêm khách hàng;";
+                url="/selling/SellingHome.jsp";
+            }else if(bill.getBuyingGoodsList().size()<=0){
+                error+= "Vui lòng thêm sản phẩm;";
                 url="/selling/SellingHome.jsp";
             }
 
@@ -88,7 +98,7 @@ public class SellServlet extends HttpServlet {
         if(action.equals("search_goods")){
             List<Goods> goodsList = new GoodsDAO().searchByName(request.getParameter("goodsname"));
             if(goodsList.size()<=0){
-                error += "\nKhông tìm thấy sản phẩm nào";
+                error += "Không tìm thấy sản phẩm nào;";
             }
             request.getSession().setAttribute("error",error);
             session.setAttribute("goodsList",goodsList);
@@ -98,9 +108,10 @@ public class SellServlet extends HttpServlet {
         else if(action.equals("add_goods")){
             Bill bill = (Bill) session.getAttribute("bill");
             List<Goods> goodsList = (List<Goods>) session.getAttribute("goodsList");
+            int count = 0;
             try {
                 int amount = Integer.parseInt(request.getParameter("amount"));
-
+                count++;
                 Goods goods = goodsList.get(Integer.parseInt(request.getParameter("chooseIndex"))-1);
                 BuyingGoods buyingGoods = new BuyingGoods();
                 buyingGoods.setGoods(goods);
@@ -111,9 +122,13 @@ public class SellServlet extends HttpServlet {
                 bill.addBuyingGoods(buyingGoods);
                 bill.reCalPaymentTotal();
             }catch (NullPointerException e){
-                error += "\nChưa chọn sản phẩm";
+                error += "Chưa chọn sản phẩm;";
             }catch (NumberFormatException e){
-                error += "\nSố lượng không hợp lệ";
+                if(count==0){
+                    error += "Số lượng không hợp lệ;";
+                }else if(count==1){
+                    error += "Chưa chọn sản phẩm;";
+                }
             }
             request.getSession().setAttribute("error",error);
             url="/selling/SellingHome.jsp";
@@ -122,13 +137,13 @@ public class SellServlet extends HttpServlet {
             try {
                 List<Client> listClient = new ClientDAO().searchClient(request.getParameter("client_phone"));
                 if(listClient.size()<=0){
-                    error += "\nKhông tìm thấy khách hàng nào";
+                    error += "Không tìm thấy khách hàng nào;";
                 }
 
                 session.setAttribute("listClient",listClient);
             } catch (SQLException e) {
                 e.printStackTrace();
-                error+= "\nLỗi kết nối cơ sở dữ liệu";
+                error+= "Lỗi kết nối cơ sở dữ liệu;";
             }
             request.getSession().setAttribute("error",error);
             url="/selling/SellingHome.jsp";
@@ -142,7 +157,7 @@ public class SellServlet extends HttpServlet {
 
                 System.out.println(bill.getClient());
             }catch (NumberFormatException e){
-                error += "\nChưa chọn khách hàng";
+                error += "Chưa chọn khách hàng;";
             }
             request.getSession().setAttribute("error",error);
 
@@ -177,7 +192,7 @@ public class SellServlet extends HttpServlet {
 
                 session.setAttribute("bill",bill);
             }catch (NumberFormatException e){
-                error += "\nSố lượng không hợp lệ";
+                error += "Số lượng không hợp lệ;";
             }
             request.getSession().setAttribute("error",error);
             url="/selling/SellingHome.jsp";
@@ -191,7 +206,7 @@ public class SellServlet extends HttpServlet {
 
                 session.setAttribute("bill",bill);
             } catch (NumberFormatException e) {
-                error += "\nChưa chọn sản phẩm";
+                error += "Chưa chọn sản phẩm;";
             }
             request.getSession().setAttribute("error",error);
             url="/selling/SellingHome.jsp";

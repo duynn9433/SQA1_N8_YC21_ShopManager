@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.duynn.sqa1_n8_yc21_shopmanager.model.Bill" %><%--
   Created by IntelliJ IDEA.
   User: nndng
   Date: 3/21/2022
@@ -24,21 +24,34 @@
 </head>
 
 <body>
-<%
-    String msg = (String) request.getSession().getAttribute("error");
-    System.out.println("View" + msg);
-
-    if (msg!=null && !msg.equals("")){
-        %>
-        <script type="text/javascript">
-            var msg = "<%= msg %>";
-            <%--var msg = "${error}";--%>
-            alert(msg);
-        </script>
-        <%
-        request.getSession().removeAttribute("error");
+<% String error = request.getSession().getAttribute("error").toString();
+    System.out.println("SellingHome:"+error);%>
+<script>
+    const error = "<%= error %>";
+    if (error !== "") {
+        alert(error);
+        <%request.getSession().removeAttribute("error");%>
     }
-%>
+    // alert("Bạn đã đăng nhập thành công");
+</script>
+<%--<%--%>
+<%--    String msg = (String) request.getSession().getAttribute("error");--%>
+<%--    System.out.println("View" + msg);--%>
+
+<%--    if (msg!=null && !msg.equals("")){--%>
+<%--        System.out.println("View2" + msg);--%>
+<%--        %>--%>
+<%--        <script>--%>
+<%--            alert("Test");--%>
+<%--            const msg2 = "<%= msg %>";--%>
+<%--            &lt;%&ndash;var msg = "${error}";&ndash;%&gt;--%>
+<%--            alert(<%= msg %>);--%>
+<%--            alert(msg2);--%>
+<%--        </script>--%>
+<%--        <%--%>
+<%--        request.getSession().removeAttribute("error");--%>
+<%--    }--%>
+<%--%>--%>
 <div class="container-fluid">
     <div class="container-xl" style="border:1px solid #cecece;">
         <div class="row">
@@ -138,8 +151,8 @@
             <div class="col-md-8" style="border:1px solid #cecece;">
                 <form action="<c:url value="/SellServlet"/>" method="post">
                     <input type="hidden" name="action" value="find_client">
-                    <label for="name" class="form-label">Tên</label>
-                    <input id="name" type="text" name="client_name" value="${bill.client.name}"/>
+<%--                    <label for="name" class="form-label">Tên</label>--%>
+<%--                    <input id="name" type="text" name="client_name" value="${bill.client.name}"/>--%>
                     &nbsp;
                     <label for="phoneNumber" class="form-label">Số điện thoại</label>
                     <input id="phoneNumber" type="text" pattern="(84|0[3|5|7|8|9])+([0-9]{8})\b"
@@ -184,7 +197,19 @@
                 <br>
                 <form action="<c:url value="/SellServlet"/>" method="get">
 
+                    <%
+                        Bill bill = (Bill) request.getSession().getAttribute("bill");
+                        if(bill.getClient() != null) {
+                    %>
+                    <label>Tên khách hàng: </label> <label>${bill.getClient().getName()}</label> <br>
+                    <label>Số điện thoại: </label> <label>${bill.getClient().getPhoneNumber()}</label> <br>
+                    <%
+
+                        }
+                    %>
+
                     <label>Giảm giá: </label><input type="text" name="sale_off" value="0.0"> <br>
+
                     <input type="hidden" name="action" value="confirm_bill">
                     <button class="btn btn-primary" type="submit">Lưu hoá đơn</button>
                 </form>

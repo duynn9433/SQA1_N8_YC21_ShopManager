@@ -39,7 +39,8 @@
         request.getSession().removeAttribute("confirmBillMsg");
     }
     %>
-<div class="container-fluid">
+
+    <div class="container-fluid">
     <div class="table-responsive">
         <table class="table">
             <thead>
@@ -81,7 +82,6 @@
         <label class="form-label">Ngày mua hàng:</label>
         &nbsp;
         <label class="form-label">${bill.paymentDate}</label>
-
     </div>
     <div >
         <table>
