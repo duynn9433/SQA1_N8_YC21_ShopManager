@@ -18,9 +18,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <%--    <style>--%>
-    <%--        .container--%>
-    <%--    </style>--%>
 </head>
 
 <body>
@@ -32,32 +29,14 @@
         alert(error);
         <%request.getSession().removeAttribute("error");%>
     }
-    // alert("Bạn đã đăng nhập thành công");
 </script>
-<%--<%--%>
-<%--    String msg = (String) request.getSession().getAttribute("error");--%>
-<%--    System.out.println("View" + msg);--%>
 
-<%--    if (msg!=null && !msg.equals("")){--%>
-<%--        System.out.println("View2" + msg);--%>
-<%--        %>--%>
-<%--        <script>--%>
-<%--            alert("Test");--%>
-<%--            const msg2 = "<%= msg %>";--%>
-<%--            &lt;%&ndash;var msg = "${error}";&ndash;%&gt;--%>
-<%--            alert(<%= msg %>);--%>
-<%--            alert(msg2);--%>
-<%--        </script>--%>
-<%--        <%--%>
-<%--        request.getSession().removeAttribute("error");--%>
-<%--    }--%>
-<%--%>--%>
 <div class="container-fluid">
     <div class="container-xl" style="border:1px solid #cecece;">
         <div class="row">
             <div class="col-md-6" style="border:1px solid #cecece;">
                 <form action="<c:url value="/SellServlet"/>" method="post">
-                    <input type="text" name="goodsname" placeholder="Nhập tên mặt hàng"/>
+                    <input id="good_name" type="text" name="goodsname" placeholder="Nhập tên mặt hàng"/>
                     <input type="hidden" name="action" value="search_goods">
                     <button class="btn btn-primary" type="submit">Tìm</button>
                 </form>
@@ -81,7 +60,7 @@
                                     <td>${element.name}</td>
                                     <td>${element.unity}</td>
                                     <td>${element.pricePerUnit}</td>
-                                    <td><input type="radio" name="chooseIndex" value="${status.count}"></td>
+                                    <td><input type="radio" name="chooseIndex" value="${status.count}" checked></td>
                                 </tr>
                             </c:forEach>
 
@@ -156,7 +135,7 @@
                     &nbsp;
                     <label for="phoneNumber" class="form-label">Số điện thoại</label>
                     <input id="phoneNumber" type="text" pattern="(84|0[3|5|7|8|9])+([0-9]{8})\b"
-                           name="client_phone" value="${bill.client.phoneNumber}"/>
+                           name="client_phone" value="${bill.client.phoneNumber}" placeholder="Nhập số điện thoại"/>
                     &nbsp;
                     <button class="btn btn-primary" type="submit">Tìm khách hàng</button>
                 </form>
@@ -208,15 +187,29 @@
                         }
                     %>
 
-                    <label>Giảm giá: </label><input type="text" name="sale_off" value="0.0"> <br>
+                    <label>Giảm giá: </label><input type="text" name="sale_off" value="0.0" placeholder="Nhập % được giảm"> <br>
 
                     <input type="hidden" name="action" value="confirm_bill">
-                    <button class="btn btn-primary" type="submit">Lưu hoá đơn</button>
+                    <%
+                        if(bill.getClient() != null && bill.getBuyingGoodsList().size() > 0) {
+                    %>
+                        <button class="btn btn-primary" type="submit">Lưu hoá đơn</button>
+                    <%
+                        }else{
+                    %>
+                        <button class="btn btn-primary" type="submit" disabled>Lưu hoá đơn</button>
+                    <%
+                        }
+                    %>
                 </form>
             </div>
         </div>
     </div>
 </div>
+<script>
+    document.getElementById("good_name").focus();
+    document.getElementById("good_name").select();
+</script>
 </body>
 
 </body>
