@@ -27,13 +27,49 @@ public class BillDAO extends DAO{
                 bill.setId(rs.getInt("id"));
                 bill.setPaymentDate(rs.getTimestamp("paymentDate").toLocalDateTime());
 //                bill.setPaymentTotal(rs.getLong("paymentTotal")); dẫn xuất tự tính
-//setpaymentTotal
-                long payment = 0;
-                for (int i =0 ;i<bill.getBuyingGoodsList().size();i++){
-                    BuyingGoods buyingGoods=bill.getBuyingGoodsList().get(i);
-                    payment = payment + buyingGoods.getTotalPrice();
-                }
-                bill.setPaymentTotal(payment);
+//                setpaymentTotal
+//                long payment = 0;
+//                for (int i =0 ;i<bill.getBuyingGoodsList().size();i++){
+//                    BuyingGoods buyingGoods=bill.getBuyingGoodsList().get(i);
+//                    payment = payment + buyingGoods.getTotalPrice();
+//                }
+//                bill.setPaymentTotal(payment);
+                bill.setSaleOff(rs.getFloat("saleOff"));
+                bill.setNote(rs.getString("note"));
+                bill.setPaid(rs.getBoolean("isPaid"));
+                bill.setActive(rs.getBoolean("isActive"));
+                if(bill.isActive()) result.add(bill);
+            }
+            ps.close();
+            rs.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }
+    public ArrayList<Bill> allBill(){
+        ArrayList<Bill> result = new ArrayList<>();
+        String sql = "SELECT * FROM bill ";
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            //ps.setString(1);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()){
+                Bill bill = new Bill();
+                bill.setClient(new ClientDAO().getClient(rs.getInt("id")));
+//                bill.setBuyingGoodsList((ArrayList<BuyingGoods>) new BuyingGoodsDAO().getBuyingGoods(rs.getInt("id")));
+                bill.setUser(new UserDAO().getUser(rs.getInt("id")));
+                bill.setId(rs.getInt("id"));
+                bill.setPaymentDate(rs.getTimestamp("paymentDate").toLocalDateTime());
+//                bill.setPaymentTotal(rs.getLong("paymentTotal")); dẫn xuất tự tính
+//                setpaymentTotal
+//                long payment = 0;
+//                for (int i =0 ;i<bill.getBuyingGoodsList().size();i++){
+//                    BuyingGoods buyingGoods=bill.getBuyingGoodsList().get(i);
+//                    payment = payment + buyingGoods.getTotalPrice();
+//                }
+//                bill.setPaymentTotal(payment);
                 bill.setSaleOff(rs.getFloat("saleOff"));
                 bill.setNote(rs.getString("note"));
                 bill.setPaid(rs.getBoolean("isPaid"));
