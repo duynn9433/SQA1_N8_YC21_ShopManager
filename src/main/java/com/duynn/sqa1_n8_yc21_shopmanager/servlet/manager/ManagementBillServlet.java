@@ -74,6 +74,7 @@ public class ManagementBillServlet extends HttpServlet {
 
         if(action.equals("delete")){
 
+
         }
 
         context.getRequestDispatcher(url).forward(request, response);

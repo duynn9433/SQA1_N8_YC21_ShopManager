@@ -13,9 +13,9 @@ public class BuyingGoodsDAO extends DAO{
         super();
     }
 
-    public List<BuyingGoods> getBuyingGoods(int billID){
-        List<BuyingGoods> list = new ArrayList<>();
-        String sql="SELECT * FROM buying_goods WHERE billId=?";
+    public List<BuyingGoods> searchBuyingGoods(int billID){
+        ArrayList<BuyingGoods> list = new ArrayList<>();
+        String sql="SELECT * FROM buying_goods WHERE billId like?";
         try {
 
             PreparedStatement ps = con.prepareStatement(sql);
@@ -26,7 +26,7 @@ public class BuyingGoodsDAO extends DAO{
                b.setID(rs.getInt("id"));
                b.setAmount(rs.getInt("amount"));
                b.setPricePerUnit(rs.getLong("pricePerUnit"));
-//               b.setTotalPrice(rs.getLong("totalPrice")); dẫn xuất
+               b.setTotalPrice(b.getAmount()*b.getPricePerUnit());
                b.setNote(rs.getString("note"));
                b.setGoods(new GoodsDAO().getGoods(rs.getInt("id")));
                ps.executeQuery();

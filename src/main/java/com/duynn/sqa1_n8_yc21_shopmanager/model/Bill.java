@@ -1,5 +1,7 @@
 package com.duynn.sqa1_n8_yc21_shopmanager.model;
 
+import com.duynn.sqa1_n8_yc21_shopmanager.DAO.BuyingGoodsDAO;
+
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -89,6 +91,7 @@ public class Bill implements Serializable {
     }
 
     public long getPaymentTotal() {
+
         return paymentTotal;
     }
 

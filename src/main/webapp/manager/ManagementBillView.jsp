@@ -56,7 +56,7 @@
                 <tr>
                     <th>id</th>
                     <th>Ngày mua hàng</th>
-<%--                    <th>Tên</th>--%>
+                    <th>Tổng thanh toán</th>
                     <th>giảm giá</th>
                     <th>chú ý</th>
                 </tr>
@@ -65,13 +65,14 @@
                     <tr valign="top">
                         <td>${b.id}</td>
                         <td>${b.paymentDate}</td>
+                        <td>${b.paymentTotal}</td>
                         <td>${b.saleOff}</td>
                         <td>${b.note}</td>
                         <td>
                             <form action="<c:url value="/ManagementBillServlet"/>" method="POST">
                                 <input type="hidden" name="eid" value="${b.id}">
                                 <input type="hidden" name="epaymentDate" value="${b.paymentDate}">
-<%--                                <input type="hidden" name="ename" value="${i.name}">--%>
+                                <input type="hidden" name="epaymentTotal" value="${b.paymentTotal}">
                                 <input type="hidden" name="esaleOff" value="${b.saleOff}">
                                 <input type="hidden" name="enote" value="${b.note}">
                                 <input type="submit" class="btn btn-primary" value="Sửa" name="edit">
@@ -94,6 +95,8 @@
         var choose = confirm("ban co muon xoa hoa don nay?");
         if(choose==true){
             window.location.href='ManagementBillServlet?id='+id;
+            //var x = window.location.href;
+            //console.log(x);
         }
     }
 </script>
