@@ -11,11 +11,11 @@ public class DAO {
     public DAO(){
         if(con == null){
             String dbUrl = 
-                "jdbc:mysql://localhost:3306/shop_manager?autoReconnect=true&useSSL=false";
+                "jdbc:mysql://localhost:3306/testdb?autoReconnect=true&useSSL=false";
             String dbClass = "com.mysql.cj.jdbc.Driver";
             try {
                 Class.forName(dbClass);
-                con = DriverManager.getConnection (dbUrl, "root", "root");
+                con = DriverManager.getConnection (dbUrl, "root", "0338103714Hoanh");
             }catch(ClassNotFoundException | SQLException e) {
                 System.out.println(e);
             }

@@ -41,10 +41,16 @@ public class EditBillServlet extends HttpServlet {
             float saleOff = Float.parseFloat(request.getParameter("saleOff"));
             String note = request.getParameter("note");
 
+
+
             Bill bill = new Bill();
             bill.setId(id);
+            //float payment;
             bill.setPaymentDate(paymentDate);
             bill.setSaleOff(saleOff);
+            //payment = billDAO.payment(id)- billDAO.payment(id)*bill.getSaleOff();
+            //long a =  (long) payment;
+            //bill.setPaymentTotal(a);
             bill.setNote(note);
 
             System.out.println(bill);

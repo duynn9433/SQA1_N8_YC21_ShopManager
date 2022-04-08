@@ -38,12 +38,22 @@ public class ManagementBillServlet extends HttpServlet {
         if (action.equals("search")) {
             System.out.println("aaaa");
             String id = request.getParameter("search_id");
-            try {
-                List<Bill> list = new ArrayList<>(billDAO.searchBill(id));
-                session.setAttribute("listBill", list);
-                url = "/manager/ManagementBillView.jsp";
-            } catch (Exception e){
+            if(id!="") {
+                try {
+                    List<Bill> list = new ArrayList<>(billDAO.searchBill(id));
+                    session.setAttribute("listBill", list);
+                    url = "/manager/ManagementBillView.jsp";
+                } catch (Exception e) {
 
+                }
+            } else {
+                try {
+                    List<Bill> list = new ArrayList<>(billDAO.allBill());
+                    session.setAttribute("listBill", list);
+                    url = "/manager/ManagementBillView.jsp";
+                } catch (Exception e) {
+
+                }
             }
         }
 
@@ -63,6 +73,7 @@ public class ManagementBillServlet extends HttpServlet {
         }
 
         if(action.equals("delete")){
+
 
         }
 

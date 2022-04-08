@@ -2,9 +2,11 @@ package com.duynn.sqa1_n8_yc21_shopmanager.DAO;
 
 import com.duynn.sqa1_n8_yc21_shopmanager.model.Bill;
 import com.duynn.sqa1_n8_yc21_shopmanager.model.BuyingGoods;
+import com.duynn.sqa1_n8_yc21_shopmanager.model.Goods;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class BillDAO extends DAO{
     public BillDAO() {
@@ -22,18 +24,13 @@ public class BillDAO extends DAO{
             while(rs.next()){
                 Bill bill = new Bill();
                 bill.setClient(new ClientDAO().getClient(rs.getInt("id")));
-//                bill.setBuyingGoodsList((ArrayList<BuyingGoods>) new BuyingGoodsDAO().getBuyingGoods(rs.getInt("id")));
                 bill.setUser(new UserDAO().getUser(rs.getInt("id")));
                 bill.setId(rs.getInt("id"));
                 bill.setPaymentDate(rs.getTimestamp("paymentDate").toLocalDateTime());
-//                bill.setPaymentTotal(rs.getLong("paymentTotal")); dẫn xuất tự tính
-//setpaymentTotal
-                long payment = 0;
-                for (int i =0 ;i<bill.getBuyingGoodsList().size();i++){
-                    BuyingGoods buyingGoods=bill.getBuyingGoodsList().get(i);
-                    payment = payment + buyingGoods.getTotalPrice();
-                }
-                bill.setPaymentTotal(payment);
+                //long payment = payment(bill.getId())*bill.getSaleOff();
+                float payment =payment(bill.getId()) - payment(bill.getId()) *bill.getSaleOff();
+                long a =  (long) payment;
+                bill.setPaymentTotal(a);
                 bill.setSaleOff(rs.getFloat("saleOff"));
                 bill.setNote(rs.getString("note"));
                 bill.setPaid(rs.getBoolean("isPaid"));
@@ -46,6 +43,59 @@ public class BillDAO extends DAO{
             e.printStackTrace();
         }
         return result;
+    }
+    public ArrayList<Bill> allBill(){
+        ArrayList<Bill> result = new ArrayList<>();
+        String sql = "SELECT * FROM bill ";
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()){
+                Bill bill = new Bill();
+                bill.setClient(new ClientDAO().getClient(rs.getInt("id")));
+                bill.setUser(new UserDAO().getUser(rs.getInt("id")));
+                bill.setId(rs.getInt("id"));
+                bill.setPaymentDate(rs.getTimestamp("paymentDate").toLocalDateTime());
+                bill.setSaleOff(rs.getFloat("saleOff"));
+                float payment =payment(bill.getId()) - payment(bill.getId()) *bill.getSaleOff();
+                long a =  (long) payment;
+                bill.setPaymentTotal(a);
+                bill.setNote(rs.getString("note"));
+                bill.setPaid(rs.getBoolean("isPaid"));
+                bill.setActive(rs.getBoolean("isActive"));
+                if(bill.isActive()) result.add(bill);
+            }
+            ps.close();
+            rs.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }
+    
+    
+    public long payment (int id){
+        long paymenttotal = 0;
+        String sql="SELECT * FROM buying_goods WHERE billId=?";
+        try {
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1,id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                BuyingGoods b = new BuyingGoods();
+                int a = rs.getInt("amount");
+                long c = rs.getLong("pricePerUnit");
+                paymenttotal= paymenttotal+ a*c;
+            }
+            ps.close();
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return paymenttotal;
+
     }
 
 
@@ -81,8 +131,6 @@ public class BillDAO extends DAO{
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1,"0");
             ps.setString(2, id);
-            //ps.setString(2, String.valueOf(client.getID()));
-          //  ps.executeUpdate();
             ps.executeUpdate();
             con.commit();
             con.setAutoCommit(true);
