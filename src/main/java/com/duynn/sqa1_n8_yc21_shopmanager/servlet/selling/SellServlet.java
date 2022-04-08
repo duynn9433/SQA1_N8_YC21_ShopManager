@@ -4,6 +4,7 @@ import com.duynn.sqa1_n8_yc21_shopmanager.DAO.BillDAO;
 import com.duynn.sqa1_n8_yc21_shopmanager.DAO.ClientDAO;
 import com.duynn.sqa1_n8_yc21_shopmanager.DAO.GoodsDAO;
 import com.duynn.sqa1_n8_yc21_shopmanager.model.*;
+import com.duynn.sqa1_n8_yc21_shopmanager.utils.MyException;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -111,6 +112,9 @@ public class SellServlet extends HttpServlet {
             int count = 0;
             try {
                 int amount = Integer.parseInt(request.getParameter("amount"));
+                if(amount<=0){
+                    throw new NumberFormatException();
+                }
                 count++;
                 Goods goods = goodsList.get(Integer.parseInt(request.getParameter("chooseIndex"))-1);
                 BuyingGoods buyingGoods = new BuyingGoods();
@@ -129,6 +133,8 @@ public class SellServlet extends HttpServlet {
                 }else if(count==1){
                     error += "Chưa chọn sản phẩm;";
                 }
+            } catch (MyException e) {
+                error += e.getMessage();
             }
             request.getSession().setAttribute("error",error);
             url="/selling/SellingHome.jsp";

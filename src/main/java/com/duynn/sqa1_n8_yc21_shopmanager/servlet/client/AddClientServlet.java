@@ -49,7 +49,9 @@ public class AddClientServlet extends HttpServlet {
                         Bill bill = (Bill) request.getSession().getAttribute("bill");
                         bill.setClient(client);
                         request.getSession().setAttribute("bill", bill);
-                        request.getSession().setAttribute("addClientMsg","luu thanh cong");
+                        request.getSession().setAttribute("addClientMsg","Lưu thành công");
+                        String error = "";
+                        request.getSession().setAttribute("error", error);
                         getServletContext().getRequestDispatcher("/selling/SellingHome.jsp").forward(request, response);
 
                     } catch (SQLException e) {

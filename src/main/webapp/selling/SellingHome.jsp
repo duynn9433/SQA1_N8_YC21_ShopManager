@@ -68,7 +68,7 @@
 
                         </table>
                     </div>
-                    <input type="text" pattern="[0-9]+" name="amount" placeholder="Số lượng mặt hàng"/>
+                    <input type="text" pattern="[0-9]+" name="amount" placeholder="Số lượng mặt hàng" required/>
                     <input type="hidden" name="action" value="add_goods">
                     <button class="btn btn-primary" type="submit">Thêm</button>
                 </form>
@@ -96,20 +96,20 @@
                                 <td>
                                     <form action="<c:url value="/SellServlet"/>" method="post">
                                         <input type="text" name="amount" placeholder="Số lượng mặt hàng"
-                                               value="${element.amount}" size="2" maxlength="5"/>
+                                               value="${element.amount}" size="5" maxlength="5" pattern="[0-9]+" required/>
                                         <input type="hidden" name="action" value="update_goods">
                                         <input type="hidden" name="index" value="${status.count}">
 
                                 </td>
                                 <td>
-                                        <input type="submit" value="Update">
+                                        <input type="submit" value="Sửa">
                                     </form>
                                 </td>
                                 <td>
                                     <form action="<c:url value="/SellServlet"/>" method="post">
                                         <input type="hidden" name="action" value="remove_goods">
                                         <input type="hidden" name="index" value="${status.count}">
-                                        <input type="submit" value="Remove">
+                                        <input type="submit" value="Xoá">
                                     </form>
                                 </td>
                             </tr>
@@ -156,7 +156,7 @@
                                     <td>${element.name}</td>
                                     <td>${element.phoneNumber}</td>
                                     <td>${element.address}</td>
-                                    <td><input type="radio" name="chooseIndex" value="${status.count}"></td>
+                                    <td><input type="radio" name="chooseIndex" value="${status.count}" checked></td>
                                 </tr>
                             </c:forEach>
 

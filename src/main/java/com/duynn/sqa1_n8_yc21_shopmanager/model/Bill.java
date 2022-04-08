@@ -1,5 +1,7 @@
 package com.duynn.sqa1_n8_yc21_shopmanager.model;
 
+import com.duynn.sqa1_n8_yc21_shopmanager.utils.MyException;
+
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -26,10 +28,14 @@ public class Bill implements Serializable {
             paymentTotal+=buyingGoods.getTotalPrice();
         }
     }
-    public void addBuyingGoods(BuyingGoods buyingGoods) {
+    public void addBuyingGoods(BuyingGoods buyingGoods) throws MyException {
         for (int i =0 ;i<buyingGoodsList.size();i++) {
             BuyingGoods b =buyingGoodsList.get(i);
             if(b.getGoods().getName().equals(buyingGoods.getGoods().getName())){
+                long temp = (long)b.getAmount()+buyingGoods.getAmount();
+                if(temp> Integer.MAX_VALUE){
+                    throw new MyException("Số lượng quá lớn");
+                }
                 b.setAmount(b.getAmount()+buyingGoods.getAmount());
                 b.setTotalPrice(b.getPricePerUnit()*b.getAmount());
                 return;
