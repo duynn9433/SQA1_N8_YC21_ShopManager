@@ -23,6 +23,20 @@ public class Goods implements Serializable {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        Goods o = (Goods) obj;
+        if (ID == o.ID
+                && name.equals(o.name)
+                && unity.equals(o.unity)
+                && pricePerUnit == o.pricePerUnit
+                && description.equals(o.description)
+                && isActive == o.isActive) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public String toString() {
         return "Goods{" +
                 "ID=" + ID +

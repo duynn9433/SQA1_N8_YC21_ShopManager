@@ -18,12 +18,16 @@ public class MyTestWatcher implements TestWatcher {
 
     @Override
     public void testSuccessful(ExtensionContext context) {
+        String filename = "log/test.log";
+        System.setProperty("logFilename", filename);
         TestWatcher.super.testSuccessful(context);
         logger.info("Test succeeded: " + context.getDisplayName());
     }
 
     @Override
     public void testFailed(ExtensionContext context, Throwable cause) {
+        String filename = "log/test.log";
+        System.setProperty("logFilename", filename);
         TestWatcher.super.testFailed(context, cause);
         logger.error("Test failed: " + context.getDisplayName(), cause);
     }

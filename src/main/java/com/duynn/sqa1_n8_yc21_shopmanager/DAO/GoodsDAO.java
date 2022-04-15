@@ -1,6 +1,7 @@
 package com.duynn.sqa1_n8_yc21_shopmanager.DAO;
 
 import com.duynn.sqa1_n8_yc21_shopmanager.model.Goods;
+import com.duynn.sqa1_n8_yc21_shopmanager.utils.MyLogger;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -56,10 +57,13 @@ public class GoodsDAO extends DAO{
                 if(g.isActive())
                     list.add(g);
             }
+            MyLogger.logInfo(GoodsDAO.class, list.toString());
             ps.close();
             rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
+            MyLogger.logError(GoodsDAO.class, e.getMessage(),e);
+            return null;
         }
         return list;
     }

@@ -18,6 +18,19 @@ public class Client implements Serializable {
     private boolean isActive;
 
     @Override
+    public boolean equals(Object obj) {
+        Client o = (Client) obj;
+        if (this.ID == o.ID
+                && this.name.equals(o.name)
+                && this.address.equals(o.address)
+                && this.phoneNumber.equals(o.phoneNumber)
+                && this.isActive == o.isActive){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public String toString() {
         return "Client{" +
                 "ID=" + ID +
