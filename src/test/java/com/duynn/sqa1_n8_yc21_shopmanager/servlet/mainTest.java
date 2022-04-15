@@ -1,45 +1,27 @@
 package com.duynn.sqa1_n8_yc21_shopmanager.servlet;
 
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
-import org.junit.Rule;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.platform.commons.logging.LoggerFactory;
-import org.junit.rules.TestWatcher;
-import org.junit.runner.Description;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class mainTest {
-    private static Logger logger;
-    static {
-        String filename = "log/test.log";
-        System.setProperty("logFilename", filename);
-        logger = LogManager.getLogger(mainTest.class);
+class mainTest extends MyTestWatcher {
+    @BeforeEach
+    void setUp() {
+        super.setLogger(mainTest.class);
     }
 
-    @Rule
-    public TestWatcher watchman = new TestWatcher() {
-        @Override
-        protected void failed(Throwable e, Description description) {
-            logger.info("Test " + description.getDisplayName() + " failed");
-        }
-
-        @Override
-        protected void succeeded(Description description) {
-            logger.info("Test " + description.getDisplayName() + " succeeded");
-        }
-    };
-
     @Test
+    @ExtendWith(mainTest.class)
     void testMain() {
 
-        logger.info("Test main");
-        logger.error("Test main error");
-        logger.debug("Test main debug");
-//        assertEquals(1, 1);
+//        logger.info("Test main");
+//        logger.error("Test main error");
+//        logger.debug("Test main debug");
+        assertEquals(1, 1);
     }
 }
 //    private static String watchedLog;
