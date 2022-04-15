@@ -94,9 +94,9 @@
     function Confirm(id){
         var choose = confirm("ban co muon xoa hoa don nay?");
         if(choose==true){
-           window.location.href='ManagementBillServlet?id='+id;
-            var x = window.location.href;
-            console.log(x);
+            window.location.href='ManagementBillServlet?id='+id;
+            //var x = window.location.href;
+            //console.log(x);
         }
     }
 </script>
