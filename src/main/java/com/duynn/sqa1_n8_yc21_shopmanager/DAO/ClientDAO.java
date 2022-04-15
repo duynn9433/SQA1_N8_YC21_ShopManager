@@ -1,6 +1,7 @@
 package com.duynn.sqa1_n8_yc21_shopmanager.DAO;
 
 import com.duynn.sqa1_n8_yc21_shopmanager.model.Client;
+import com.duynn.sqa1_n8_yc21_shopmanager.utils.MyLogger;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -73,6 +74,7 @@ public class ClientDAO extends DAO {
         }
         ps.close();
         rs.close();
+        MyLogger.logInfo(ClientDAO.class, res.toString());
         return res;
     }
 

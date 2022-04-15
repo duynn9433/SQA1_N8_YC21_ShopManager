@@ -17,6 +17,17 @@ public class Client implements Serializable {
     private String phoneNumber;
     private boolean isActive;
 
+    public Client() {
+    }
+
+    public Client(int ID, String name, String address, String phoneNumber, boolean isActive) {
+        this.ID = ID;
+        this.name = name;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.isActive = isActive;
+    }
+
     @Override
     public boolean equals(Object obj) {
         Client o = (Client) obj;
