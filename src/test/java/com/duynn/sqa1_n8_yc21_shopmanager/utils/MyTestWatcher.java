@@ -1,9 +1,7 @@
-package com.duynn.sqa1_n8_yc21_shopmanager.servlet;
+package com.duynn.sqa1_n8_yc21_shopmanager.utils;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.TestWatcher;
 
@@ -29,12 +27,6 @@ public class MyTestWatcher implements TestWatcher {
         TestWatcher.super.testFailed(context, cause);
         logger.error("Test failed: " + context.getDisplayName(), cause);
     }
-//
-//    @Test
-//    @ExtendWith(MyTestWatcher.class)
-//    public void test() {
-//        assertEquals(1, 1);
-//    }
 
     protected void setLogger(Class className) {
         logger = LogManager.getLogger(className);
