@@ -11,6 +11,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Trang Chủ Sản Phẩm</title>
+    <jsp:useBean id="usebean" class="com.duynn.sqa1_n8_yc21_shopmanager.servlet.manager.EditBillServlet" scope="request"></jsp:useBean>
 
     <link rel="stylesheet" href="bootstraplib/bootstrap.4.0.0.min.css"
           crossorigin="anonymous">
@@ -33,16 +34,8 @@
         </tr>
         <tr class="tbl-row">
             <td>Ngày thanh toán:</td>
-            <td><input class="form-control" type="datetime-local" name="paymentDate" value="${paymentDate}" required></td>
+            <td> <div>  ${paymentDate} </div> </td>
         </tr>
-        <%--         <tr class="tbl-row">
-                    <td>Tổng thanh toán:</td>
-                    <td><input class="form-control" type="text" name="paymentTotal" value="${paymentTotal}" required></td>
-                </tr>
-        <%--        <tr class="tbl-row">--%>
-<%--            <td>Phương thức thanh toán:</td>--%>
-<%--            <td><input class="form-control" type="text" name="paymentType" value="${paymentType}" required></td>--%>
-<%--        </tr>--%>
         <tr class="tbl-row">
             <td>Giảm giá:</td>
             <td><input class="form-control" type="text" name="saleOff" value="${saleOff}" required></td>
@@ -51,6 +44,53 @@
             <td>Chú thích:</td>
             <td><input class="form-control" type="text" name="note" value="${note}" required></td>
         </tr>
+
+        <%--        toong tien--%>
+<%--        <tr class="tbl-row">--%>
+<%--            <td>Tổng tiền:</td>--%>
+<%--            <td><input class="form-control" type="hidden" name="paymenttotal" value="1234" required></td>--%>
+<%--        </tr>--%>
+        <%--       danh sách hóa đơn--%>
+        <tr class="tbl-row">
+            <td>Danh sach hoa don:</td>
+        </tr>
+        <tr>
+            <table cellspacing="10" cellpadding="10" border="3">
+                <tr>
+                    <th>id</th>
+                    <th>Tên</th>
+                    <th>Giá</th>
+                    <th>Số lượng</th>
+                </tr>
+
+                <c:forEach  items="${listgoods}" var="b">
+                    <tr valign="top">
+                        <td>${b.ID}</td>
+                        <td>${b.amount}</td>
+                        <td>${b.pricePerUnit}</td>
+                        <td>${usebean.totalPrice}</td>
+                        <td>
+                            <form action="<c:url value="/EditBillServlet"/>" method="POST">
+                                <input type="hidden" name="eid" value="${b.id}">
+                                <input type="hidden" name="epaymentDate" value="${b.paymentDate}">
+                                <input type="hidden" name="epaymentTotal" value="${b.paymentTotal}">
+                                <input type="hidden" name="esaleOff" value="${b.saleOff}">
+                                <input type="hidden" name="enote" value="${b.note}">
+                                <input type="submit" class="btn btn-primary" value="Sửa" name="edit">
+                                <input type="hidden" name="action" value="edit">
+                            </form>
+                        </td>
+
+
+                    </tr>
+                </c:forEach>
+            </table>
+
+        </tr>
+
+
+
+
     </table>
     <input type="hidden" name="action" value="edit"><br>
     <input class="btn btn-primary" type="submit" value="Sửa">

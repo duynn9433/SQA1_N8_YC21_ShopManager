@@ -68,6 +68,7 @@ public class ManagementBillServlet extends HttpServlet {
             session.setAttribute("paymentDate",epaymentDate);
             session.setAttribute("saleOff",esaleOff);
             session.setAttribute("note",enote);
+            idbill = eid;
 
             url = "/manager/EditBillView.jsp";
         }
@@ -79,7 +80,7 @@ public class ManagementBillServlet extends HttpServlet {
 
         context.getRequestDispatcher(url).forward(request, response);
     }
-
+public static String idbill;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ServletContext context = getServletContext();
