@@ -30,7 +30,6 @@
         <tr class="tbl-row">
             <td>ID:</td>
             <td>${id}</td>
-            <td><input class="form-control" type="hidden" name="id" value="${id}" required></td>
         </tr>
         <tr class="tbl-row">
             <td>Ngày thanh toán:</td>
@@ -42,14 +41,9 @@
         </tr>
         <tr class="tbl-row">
             <td>Chú thích:</td>
-            <td><input class="form-control" type="text" name="note" value="${note}" required></td>
+            <td><input class="form-control" type="text" name="note" value="${sdt}" required></td>
         </tr>
 
-        <%--        toong tien--%>
-<%--        <tr class="tbl-row">--%>
-<%--            <td>Tổng tiền:</td>--%>
-<%--            <td><input class="form-control" type="hidden" name="paymenttotal" value="1234" required></td>--%>
-<%--        </tr>--%>
         <%--       danh sách hóa đơn--%>
         <tr class="tbl-row">
             <td>Danh sach hoa don:</td>
@@ -87,13 +81,27 @@
             </table>
 
         </tr>
-
-
-
+        <tr class="tbl-row">
+            <td>Thêm món:</td>
+            <td>
+                <input class="form-control" type="text" name="note" required>
+                <input class="btn btn-primary" type="submit" value="Thêm">
+            </td>
+        </tr>
+        <td> <div>  </div> </td>
+            <td>Khách hàng:</td>
+            <td>
+                <input class="form-control" type="text" name="note" required>
+                 <tr class="tbl-row">
+                     <td>Tên:</td>
+                    <td> <div> 'Khách hàng a' </div> </td>
+                </tr>
+                <input class="btn btn-primary" type="submit" value="Cập nhật khách hàng">
+            </td>
 
     </table>
     <input type="hidden" name="action" value="edit"><br>
-    <input class="btn btn-primary" type="submit" value="Sửa">
+    <input class="btn btn-primary" type="submit" value="Cập nhật hóa đơn">
 </form>
 <form action="<c:url value="/manager/ManagerHomeView.jsp"/>" method="post">
     <input class="btn btn-primary" type="submit" value="HOME">

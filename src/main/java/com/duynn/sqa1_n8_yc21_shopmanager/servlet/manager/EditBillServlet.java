@@ -2,8 +2,10 @@ package com.duynn.sqa1_n8_yc21_shopmanager.servlet.manager;
 
 
 import com.duynn.sqa1_n8_yc21_shopmanager.DAO.BillDAO;
+import com.duynn.sqa1_n8_yc21_shopmanager.DAO.BuyingGoodsDAO;
 import com.duynn.sqa1_n8_yc21_shopmanager.DAO.ClientDAO;
 import com.duynn.sqa1_n8_yc21_shopmanager.model.Bill;
+import com.duynn.sqa1_n8_yc21_shopmanager.model.BuyingGoods;
 import com.duynn.sqa1_n8_yc21_shopmanager.model.Client;
 
 import javax.servlet.ServletContext;
@@ -18,9 +20,13 @@ import java.io.IOException;
 import java.sql.Array;
 import java.sql.Date;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(name = "EditBillServlet", value = "/EditBillServlet")
 public class EditBillServlet extends HttpServlet {
+
+
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -32,25 +38,28 @@ public class EditBillServlet extends HttpServlet {
             session.invalidate();
             session = request.getSession();
         }
+
         BillDAO billDAO = new BillDAO();
         String action = request.getParameter("action");
+        try{
+            BuyingGoodsDAO buyingGoodsDAO =new BuyingGoodsDAO();
+            ArrayList<BuyingGoods> buyingGoods = new ArrayList<>(buyingGoodsDAO.searchBuyingGoods(ManagementBillServlet.idbill));
+            request.setAttribute("listgoods",buyingGoods);
+        }catch (Exception e ){
+
+        }
+
         if (action.equals("edit")) {
             System.out.println("ccccccccc");
             int id = Integer.parseInt(request.getParameter("id"));
             LocalDateTime paymentDate = LocalDateTime.parse(request.getParameter("paymentDate"));
             float saleOff = Float.parseFloat(request.getParameter("saleOff"));
             String note = request.getParameter("note");
-
-
-
             Bill bill = new Bill();
             bill.setId(id);
-            //float payment;
             bill.setPaymentDate(paymentDate);
             bill.setSaleOff(saleOff);
-            //payment = billDAO.payment(id)- billDAO.payment(id)*bill.getSaleOff();
-            //long a =  (long) payment;
-            //bill.setPaymentTotal(a);
+
             bill.setNote(note);
 
             System.out.println(bill);
@@ -75,6 +84,7 @@ public class EditBillServlet extends HttpServlet {
         }
         context.getRequestDispatcher(url).forward(request, response);
     }
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

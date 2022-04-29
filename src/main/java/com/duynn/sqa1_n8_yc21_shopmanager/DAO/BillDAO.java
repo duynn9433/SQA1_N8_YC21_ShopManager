@@ -23,8 +23,8 @@ public class BillDAO extends DAO{
 
             while(rs.next()){
                 Bill bill = new Bill();
-                bill.setClient(new ClientDAO().getClient(rs.getInt("id")));
-                bill.setUser(new UserDAO().getUser(rs.getInt("id")));
+                bill.setClient(new ClientDAO().getClient(rs.getInt("ClientId")));
+                bill.setUser(new UserDAO().getUser(rs.getInt("userId")));
                 bill.setId(rs.getInt("id"));
                 bill.setPaymentDate(rs.getTimestamp("paymentDate").toLocalDateTime());
                 //long payment = payment(bill.getId())*bill.getSaleOff();

@@ -13,22 +13,23 @@ public class BuyingGoodsDAO extends DAO{
         super();
     }
 
-    public List<BuyingGoods> searchBuyingGoods(int billID){
+    public ArrayList<BuyingGoods> searchBuyingGoods(String  billID){
         ArrayList<BuyingGoods> list = new ArrayList<>();
-        String sql="SELECT * FROM buying_goods WHERE billId like?";
+        String sql="SELECT * FROM buying_goods WHERE id=?";
         try {
 
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1,billID);
+            ps.setString(1,billID);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                BuyingGoods b = new BuyingGoods();
+               b.setGoods(new GoodsDAO().getGoods(rs.getInt("goodsId")));
                b.setID(rs.getInt("id"));
                b.setAmount(rs.getInt("amount"));
                b.setPricePerUnit(rs.getLong("pricePerUnit"));
                b.setTotalPrice(b.getAmount()*b.getPricePerUnit());
                b.setNote(rs.getString("note"));
-               b.setGoods(new GoodsDAO().getGoods(rs.getInt("id")));
+
                ps.executeQuery();
             }
             ps.close();
@@ -36,7 +37,6 @@ public class BuyingGoodsDAO extends DAO{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        // buyinggoods.setGoods(new GoodsDAO().getGoods(rs.getInteger("goodsID"))))
 
         return list;
     }

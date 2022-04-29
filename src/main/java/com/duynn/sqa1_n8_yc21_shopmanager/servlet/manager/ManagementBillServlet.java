@@ -1,8 +1,10 @@
 package com.duynn.sqa1_n8_yc21_shopmanager.servlet.manager;
 
 import com.duynn.sqa1_n8_yc21_shopmanager.DAO.BillDAO;
+import com.duynn.sqa1_n8_yc21_shopmanager.DAO.BuyingGoodsDAO;
 import com.duynn.sqa1_n8_yc21_shopmanager.DAO.ClientDAO;
 import com.duynn.sqa1_n8_yc21_shopmanager.model.Bill;
+import com.duynn.sqa1_n8_yc21_shopmanager.model.BuyingGoods;
 import com.duynn.sqa1_n8_yc21_shopmanager.model.Client;
 
 import javax.servlet.ServletContext;
@@ -60,6 +62,13 @@ public class ManagementBillServlet extends HttpServlet {
         if(action.equals("edit")){
             System.out.println("bbbbb");
             String eid = request.getParameter("eid");
+            BillDAO b =  new BillDAO();
+
+            Bill bill = b.searchBill(eid).get(0);
+            Client c = new Client();
+            c =bill.getClient();
+            String sdt = c.getPhoneNumber();
+
             LocalDateTime epaymentDate = LocalDateTime.parse(request.getParameter("epaymentDate"));
             float esaleOff = Float.parseFloat(request.getParameter("esaleOff"));
             String enote = request.getParameter("enote");
@@ -68,7 +77,10 @@ public class ManagementBillServlet extends HttpServlet {
             session.setAttribute("paymentDate",epaymentDate);
             session.setAttribute("saleOff",esaleOff);
             session.setAttribute("note",enote);
-            idbill = eid;
+            session.setAttribute("sdt",sdt);
+            BuyingGoodsDAO buyingGoodsDAO = new BuyingGoodsDAO();
+            ArrayList<BuyingGoods> listBuyingGoods = buyingGoodsDAO.searchBuyingGoods(eid);
+            session.setAttribute("listBuyingGoods",listBuyingGoods);
 
             url = "/manager/EditBillView.jsp";
         }
