@@ -1,7 +1,9 @@
 package com.duynn.sqa1_n8_yc21_shopmanager.servlet.manager;
 
+import com.duynn.sqa1_n8_yc21_shopmanager.DAO.BuyingGoodsDAO;
 import com.duynn.sqa1_n8_yc21_shopmanager.DAO.ClientDAO;
 import com.duynn.sqa1_n8_yc21_shopmanager.DAO.UserDAO;
+import com.duynn.sqa1_n8_yc21_shopmanager.model.BuyingGoods;
 import com.duynn.sqa1_n8_yc21_shopmanager.model.Client;
 import com.duynn.sqa1_n8_yc21_shopmanager.model.User;
 import com.duynn.sqa1_n8_yc21_shopmanager.servlet.user.CheckLoginServlet;
@@ -25,6 +27,7 @@ import java.util.logging.Logger;
 
 @WebServlet(name = "ManagementClientServlet", value = "/ManagementClientServlet")
 public class ManagementClientServlet extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -67,6 +70,8 @@ public class ManagementClientServlet extends HttpServlet {
             session.setAttribute("name",ename);
             session.setAttribute("address",eaddress);
             session.setAttribute("phoneNumber",ephoneNumber);
+
+
 
             url = "/manager/EditClientView.jsp";
         }

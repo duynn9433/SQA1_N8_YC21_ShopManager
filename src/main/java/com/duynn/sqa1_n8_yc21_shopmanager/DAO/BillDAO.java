@@ -64,10 +64,10 @@ public class BillDAO extends DAO{
                 bill.setId(rs.getInt("id"));
                 bill.setPaymentDate(rs.getTimestamp("paymentDate").toLocalDateTime());
                 //long payment = payment(bill.getId())*bill.getSaleOff();
+                bill.setSaleOff(rs.getFloat("saleOff"));
                 float payment =payment(bill.getId()) - payment(bill.getId()) *bill.getSaleOff();
                 long a =  (long) payment;
                 bill.setPaymentTotal(a);
-                bill.setSaleOff(rs.getFloat("saleOff"));
                 bill.setNote(rs.getString("note"));
                 bill.setPaid(rs.getBoolean("isPaid"));
                 bill.setActive(rs.getBoolean("isActive"));

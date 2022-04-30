@@ -80,7 +80,7 @@ public class ManagementBillServlet extends HttpServlet {
             session.setAttribute("id",eid);
             session.setAttribute("paymentDate",epaymentDate);
             session.setAttribute("saleOff",esaleOff);
-            session.setAttribute("note",enote);
+            request.setAttribute("payment",bill.getPaymentTotal());
             //
 
 

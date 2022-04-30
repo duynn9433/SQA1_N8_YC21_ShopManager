@@ -79,6 +79,7 @@ public class EditBillServlet extends HttpServlet {
             try{
                 String phone = request.getParameter("client_phone");
                 List<Client> clients = clientDAO.searchClient(phone);
+                request.setAttribute("sdt",bill.getClient().getPhoneNumber());
                 if(clients.size()<=0){
                     error += "Không tìm thấy khách hàng nào;";
                 }
@@ -97,6 +98,16 @@ public class EditBillServlet extends HttpServlet {
                 error += "Chưa chọn khách hàng;";
             }
             url = "/manager/EditBillView.jsp";
+        }
+        if(action.equals("remove_goods")){
+            System.out.println("update_bill");
+            try {
+                int index = Integer.parseInt(request.getParameter("index")) -1 ;
+                bill.getBuyingGoodsList().remove(index);
+            }catch (Exception e){}
+            url = "/manager/EditBillView.jsp";
+
+
         }
         if(action.equals("update_bill")){
             System.out.println("update_bill");
@@ -119,6 +130,7 @@ public class EditBillServlet extends HttpServlet {
         GoodsDAO goodsDAO = new GoodsDAO();
         // load lai id
         Bill bill = billDAO.searchBillid(getBillID());
+        request.setAttribute("payment",bill.getPaymentTotal());
         request.setAttribute("id",bill.getId());
         request.setAttribute("paymentDate",bill.getPaymentDate());
         request.setAttribute("saleOff",bill.getSaleOff());

@@ -58,14 +58,16 @@
                 </tr>
 <%--tìm cách in danh sách hóa đơn cũ--%>
                 <tbody>
-            <tr></tr>
-            <tr></tr>
-            <c:forEach items="${buyiggoodslist}" var="element" varStatus="status">
-            <tr>
-                <td>${element.goods.name}</td>
-                <td>${element.goods.unity}</td>
-                <td>${element.goods.pricePerUnit}</td>
-                <td>${element.amount}</td>
+                    <tr></tr>
+                    <tr></tr>
+                    <c:forEach items="${buyiggoodslist}" var="element" varStatus="status">
+                    <tr>
+                        <td>${element.goods.name}</td>
+                        <td>${element.goods.unity}</td>
+                        <td>${element.goods.pricePerUnit}</td>
+                        <td>${element.amount}</td>
+
+                    <input type="submit" value="Sửa">
 </form>
 </td>
 <td>
@@ -83,7 +85,8 @@
 
             </table>
 
-        </tr>
+        </tr
+<div>Tổng thanh toán: ${payment} <br> </div>
         <tr class="tbl-row">
             <td>Thêm món:</td>
             <td>
@@ -134,7 +137,7 @@
                         <input type="hidden" name="action" value="find_client">&nbsp;
                         <label for="phoneNumber" class="form-label">Số điện thoại</label>
                         <input id="phoneNumber" type="text" pattern="(84|0[3|5|7|8|9])+([0-9]{8})\b"
-                               name="client_phone" value="" placeholder="Nhập số điện thoại"/>
+                               name="client_phone" value="${sdt}" placeholder="Nhập số điện thoại"/>
                         &nbsp;
                         <button class="btn btn-primary" type="submit">Tìm khách hàng</button>
                     </form>
