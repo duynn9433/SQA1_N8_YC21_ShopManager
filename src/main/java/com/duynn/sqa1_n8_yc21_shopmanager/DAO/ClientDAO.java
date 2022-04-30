@@ -53,6 +53,27 @@ public class ClientDAO extends DAO {
             System.out.println(c);
         };
     }
+    public Client seachClientID(String id){
+        Client c = new Client();
+        String sql = "select * from client where id = " + id;
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+
+                c.setID(rs.getInt("ID"));
+                c.setName(rs.getString("name"));
+                c.setAddress(rs.getString("address"));
+                c.setPhoneNumber(rs.getString("phoneNumber"));
+                c.setActive(true);
+
+            }
+        } catch (SQLException e) {
+
+        }
+        return  c;
+    }
     public List<Client> searchClient(String sdt) throws SQLException {
         List<Client> res = new ArrayList<>();
         String sql = "select * from client c where c.phoneNumber LIKE ?";

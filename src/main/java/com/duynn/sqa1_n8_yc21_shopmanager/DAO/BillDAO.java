@@ -2,6 +2,7 @@ package com.duynn.sqa1_n8_yc21_shopmanager.DAO;
 
 import com.duynn.sqa1_n8_yc21_shopmanager.model.Bill;
 import com.duynn.sqa1_n8_yc21_shopmanager.model.BuyingGoods;
+import com.duynn.sqa1_n8_yc21_shopmanager.model.Client;
 import com.duynn.sqa1_n8_yc21_shopmanager.model.Goods;
 
 import java.sql.*;
@@ -43,6 +44,45 @@ public class BillDAO extends DAO{
             e.printStackTrace();
         }
         return result;
+    }
+    public Bill searchBillid(String key){
+        Bill bill = new Bill();
+        String sql = "SELECT * FROM bill b WHERE b.id = ?";
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, key);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()){
+
+
+                int id_client = rs.getInt("clientID");
+                ClientDAO client = new ClientDAO();
+                Client c = client.seachClientID(String.valueOf(id_client));
+                bill.setClient(c);
+                bill.setUser(new UserDAO().getUser(rs.getInt("userId")));
+                bill.setId(rs.getInt("id"));
+                bill.setPaymentDate(rs.getTimestamp("paymentDate").toLocalDateTime());
+                //long payment = payment(bill.getId())*bill.getSaleOff();
+                float payment =payment(bill.getId()) - payment(bill.getId()) *bill.getSaleOff();
+                long a =  (long) payment;
+                bill.setPaymentTotal(a);
+                bill.setSaleOff(rs.getFloat("saleOff"));
+                bill.setNote(rs.getString("note"));
+                bill.setPaid(rs.getBoolean("isPaid"));
+                bill.setActive(rs.getBoolean("isActive"));
+                //buyinggoodslist
+                BuyingGoodsDAO buyingGoodsDAO =  new BuyingGoodsDAO();
+                ArrayList<BuyingGoods> buyingGoods =  buyingGoodsDAO.searchBuyingGoods(key);
+                bill.setBuyingGoodsList(buyingGoods);
+
+            }
+            ps.close();
+            rs.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        if(bill.isActive()) return bill; else return null;
     }
     public ArrayList<Bill> allBill(){
         ArrayList<Bill> result = new ArrayList<>();

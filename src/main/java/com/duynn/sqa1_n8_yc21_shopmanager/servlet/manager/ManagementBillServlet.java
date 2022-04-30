@@ -6,6 +6,7 @@ import com.duynn.sqa1_n8_yc21_shopmanager.DAO.ClientDAO;
 import com.duynn.sqa1_n8_yc21_shopmanager.model.Bill;
 import com.duynn.sqa1_n8_yc21_shopmanager.model.BuyingGoods;
 import com.duynn.sqa1_n8_yc21_shopmanager.model.Client;
+import com.duynn.sqa1_n8_yc21_shopmanager.model.Goods;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -38,7 +39,7 @@ public class ManagementBillServlet extends HttpServlet {
         String action = request.getParameter("action");
         System.out.println("action " + action);
         if (action.equals("search")) {
-            System.out.println("aaaa");
+            System.out.println("search-id");
             String id = request.getParameter("search_id");
             if(id!="") {
                 try {
@@ -60,27 +61,30 @@ public class ManagementBillServlet extends HttpServlet {
         }
 
         if(action.equals("edit")){
-            System.out.println("bbbbb");
+            System.out.println("edit_bill");
             String eid = request.getParameter("eid");
-            BillDAO b =  new BillDAO();
-
-            Bill bill = b.searchBill(eid).get(0);
-            Client c = new Client();
-            c =bill.getClient();
-            String sdt = c.getPhoneNumber();
-
             LocalDateTime epaymentDate = LocalDateTime.parse(request.getParameter("epaymentDate"));
             float esaleOff = Float.parseFloat(request.getParameter("esaleOff"));
             String enote = request.getParameter("enote");
-
+            Bill bill = billDAO.searchBillid(eid);
+            //buyinggoods
+            Client client= bill.getClient();
+            ArrayList<BuyingGoods> buyingGoodsList = bill.getBuyingGoodsList();
+            request.setAttribute("buyiggoodslist",buyingGoodsList);
+            //client
+            request.setAttribute("client_phone",client.getPhoneNumber());
+            request.setAttribute("client_name",client.getName());
+            request.setAttribute("client_adress",client.getAddress());
+            BillID= eid;//truyen idbill
+            //bill
             session.setAttribute("id",eid);
             session.setAttribute("paymentDate",epaymentDate);
             session.setAttribute("saleOff",esaleOff);
             session.setAttribute("note",enote);
-            session.setAttribute("sdt",sdt);
-            BuyingGoodsDAO buyingGoodsDAO = new BuyingGoodsDAO();
-            ArrayList<BuyingGoods> listBuyingGoods = buyingGoodsDAO.searchBuyingGoods(eid);
-            session.setAttribute("listBuyingGoods",listBuyingGoods);
+            //
+
+
+
 
             url = "/manager/EditBillView.jsp";
         }
@@ -92,7 +96,7 @@ public class ManagementBillServlet extends HttpServlet {
 
         context.getRequestDispatcher(url).forward(request, response);
     }
-public static String idbill;
+    public static String BillID;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ServletContext context = getServletContext();

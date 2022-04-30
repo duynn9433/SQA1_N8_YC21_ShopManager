@@ -1,9 +1,12 @@
 package com.duynn.sqa1_n8_yc21_shopmanager.DAO;
 
+import com.duynn.sqa1_n8_yc21_shopmanager.model.BuyingGoods;
 import com.duynn.sqa1_n8_yc21_shopmanager.utils.MyTestWatcher;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,6 +21,9 @@ class BuyingGoodsDAOTest extends MyTestWatcher {
 
     @Test
     void searchBuyingGoods() {
+        ArrayList<BuyingGoods> buyingGoods = buyingGoodsDAO.searchBuyingGoods("1");
+        assertEquals(1,buyingGoods.size());
+
     }
 
     @Test

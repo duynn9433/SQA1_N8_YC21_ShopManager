@@ -1,6 +1,7 @@
 package com.duynn.sqa1_n8_yc21_shopmanager.DAO;
 
 import com.duynn.sqa1_n8_yc21_shopmanager.model.BuyingGoods;
+import com.duynn.sqa1_n8_yc21_shopmanager.model.Goods;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,22 +16,24 @@ public class BuyingGoodsDAO extends DAO{
 
     public ArrayList<BuyingGoods> searchBuyingGoods(String  billID){
         ArrayList<BuyingGoods> list = new ArrayList<>();
-        String sql="SELECT * FROM buying_goods WHERE id=?";
+        String sql="SELECT * FROM buying_goods WHERE billId="+billID;
         try {
 
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1,billID);
+            //ps.setString(1,billID);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                BuyingGoods b = new BuyingGoods();
-               b.setGoods(new GoodsDAO().getGoods(rs.getInt("goodsId")));
-               b.setID(rs.getInt("id"));
-               b.setAmount(rs.getInt("amount"));
-               b.setPricePerUnit(rs.getLong("pricePerUnit"));
-               b.setTotalPrice(b.getAmount()*b.getPricePerUnit());
-               b.setNote(rs.getString("note"));
-
-               ps.executeQuery();
+               int id = rs.getInt("id"); b.setID(id);
+               int amount = rs.getInt("amount"); b.setAmount(amount);
+               long pricePerUnit = rs.getLong("pricePerUnit");b.setPricePerUnit(pricePerUnit);
+               b.setTotalPrice(amount*pricePerUnit);
+               String note = rs.getString("note");b.setNote(note);
+               int goodid = rs.getInt("goodsId");
+               GoodsDAO goodsDAO =  new GoodsDAO();
+               Goods goods= goodsDAO.getGoods(goodid);
+                b.setGoods(goods);
+                list.add(b);
             }
             ps.close();
             rs.close();
