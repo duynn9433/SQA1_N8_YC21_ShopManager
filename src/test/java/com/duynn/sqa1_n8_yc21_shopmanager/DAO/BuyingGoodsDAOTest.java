@@ -1,11 +1,13 @@
 package com.duynn.sqa1_n8_yc21_shopmanager.DAO;
 
+import com.duynn.sqa1_n8_yc21_shopmanager.model.Bill;
 import com.duynn.sqa1_n8_yc21_shopmanager.model.BuyingGoods;
 import com.duynn.sqa1_n8_yc21_shopmanager.utils.MyTestWatcher;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -27,11 +29,16 @@ class BuyingGoodsDAOTest extends MyTestWatcher {
     }
 
     @Test
-    void deleteBuyingGoods() {
+    void deleteBuyingGoods() throws SQLException {
+        // ko Test delete dc
+        boolean delete = buyingGoodsDAO.deleteBuyingGoods(1);
+        assertEquals(false,delete);
+
     }
 
     @Test
     void inSert() {
+        // không dùng
     }
 
     @Test

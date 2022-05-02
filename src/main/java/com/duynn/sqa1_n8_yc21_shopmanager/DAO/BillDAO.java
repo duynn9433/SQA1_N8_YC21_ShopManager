@@ -145,13 +145,13 @@ public class BillDAO extends DAO{
         boolean success = false;
         try {
             con.setAutoCommit(false);
-            String sql = "UPDATE bill SET paymentDate= ?,saleOff=?,note=? WHERE id=?;";
+            String sql = "UPDATE bill SET saleOff=?,note=? WHERE id=?;";
             PreparedStatement ps = con.prepareStatement(sql);
 
-            ps.setTimestamp(1, Timestamp.valueOf(bill.getPaymentDate()));
-            ps.setFloat(2,bill.getSaleOff());
-            ps.setString(3,bill.getNote());
-            ps.setString(4, String.valueOf(bill.getId()));
+//            ps.setTimestamp(1, Timestamp.valueOf(bill.getPaymentDate()));
+            ps.setFloat(1,bill.getSaleOff());
+            ps.setString(2,bill.getNote());
+            ps.setString(3, String.valueOf(bill.getId()));
             ps.executeUpdate();
             System.out.println("Edit SQL");
             con.commit();

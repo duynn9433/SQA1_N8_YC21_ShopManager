@@ -43,6 +43,26 @@ public class Bill implements Serializable {
         }
         buyingGoodsList.add(buyingGoods);
     }
+    public Bill(int id, long paymentTotal, float saleOff, String note, boolean isPaid, boolean isActive) {
+        this.id = id;
+//        this.paymentDate = paymentDate;
+        this.paymentTotal = paymentTotal;
+        this.saleOff = saleOff;
+        this.note = note;
+        this.isPaid = isPaid;
+        this.isActive = isActive;
+    }
+
+    public Bill(int id, LocalDateTime paymentDate, long paymentTotal, float saleOff, String note, boolean isPaid, boolean isActive) {
+        this.id = id;
+        this.paymentDate = paymentDate;
+        this.paymentTotal = paymentTotal;
+        this.saleOff = saleOff;
+        this.note = note;
+        this.isPaid = isPaid;
+        this.isActive = isActive;
+    }
+
     public Bill() {
         buyingGoodsList = new ArrayList<>();
         isActive = true;

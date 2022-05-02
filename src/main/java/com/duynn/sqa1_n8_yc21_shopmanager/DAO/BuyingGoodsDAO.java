@@ -49,7 +49,7 @@ public class BuyingGoodsDAO extends DAO{
         try {
             con.setAutoCommit(false);
 //            String sql = "DELETE FROM bill WHERE id = ?";
-            String sql = "DELETE buying_goods WHERE id = ?";
+            String sql = "DELETE buying_goods WHERE id=?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1,billId);
             ps.executeUpdate();
